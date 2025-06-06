@@ -1,0 +1,105 @@
+/* Enhanced waitlist page styling for larger screens */
+.waitlist-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.waitlist-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+  z-index: -2;
+}
+
+.waitlist-bg-blur {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.waitlist-bg-blur::before {
+  content: "";
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  top: calc(var(--mouse-y, 0.5) * 100%);
+  left: calc(var(--mouse-x, 0.5) * 100%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.waitlist-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  padding: 2rem;
+}
+
+/* Enhanced styling for larger screens */
+@media (min-width: 1024px) {
+  .waitlist-container {
+    padding: 3rem;
+  }
+
+  .waitlist-card {
+    max-width: 600px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .waitlist-bg-blur::before {
+    width: 60vw;
+    height: 60vw;
+  }
+}
+
+/* Enhanced brand logo for waitlist page */
+.waitlist-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.waitlist-brand .qantora-brand {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .waitlist-brand {
+    margin-bottom: 3rem;
+  }
+
+  .waitlist-brand .qantora-brand {
+    font-size: 2rem;
+  }
+}
+
+/* Enhanced form animations */
+.waitlist-step {
+  transition: all 0.5s ease;
+}
+
+.waitlist-step:not(.active) {
+  display: none;
+}
+
+.waitlist-step.active {
+  display: block;
+  animation: fade-in 0.5s ease forwards;
+}
