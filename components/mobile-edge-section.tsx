@@ -4,62 +4,57 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const edgeFeatures = [
   {
     id: 1,
     icon: "📊",
-    title: "Performance Tracking & Journaling",
-    description: "Advanced trade journals. Metrics that matter. Reflect, refine, repeat — all in one place.",
-    color: "from-blue-50 to-blue-100",
-    accent: "bg-blue-500",
+    title: "Performance Tracking",
+    subtitle: "& Journaling",
+    description: "Advanced trade journals with metrics that matter. Reflect, refine, and repeat — all in one place.",
+    accent: "bg-[#111827]",
   },
   {
     id: 2,
     icon: "🤝",
-    title: "Community & Collaboration",
-    description:
-      "You're surrounded by like-minded traders. Share insights, discuss strategies, or just vibe with those who get it.",
-    color: "from-green-50 to-green-100",
-    accent: "bg-green-500",
+    title: "Community",
+    subtitle: "& Collaboration",
+    description: "Connect with like-minded traders. Share insights, discuss strategies, and grow together.",
+    accent: "bg-[#111827]",
   },
   {
     id: 3,
     icon: "📚",
-    title: "Educational Resources",
-    description:
-      "Never stop growing. Access curated learning for every stage of your journey — from beginner blueprints to pro-level breakdowns.",
-    color: "from-purple-50 to-purple-100",
-    accent: "bg-purple-500",
+    title: "Educational",
+    subtitle: "Resources",
+    description: "Curated learning for every stage — from beginner blueprints to pro-level breakdowns.",
+    accent: "bg-[#111827]",
   },
   {
     id: 4,
     icon: "🤖",
-    title: "Cato – Your Trading AI",
-    description:
-      "Think of it as your second brain. Ask, analyze, forecast. Cato isn't just an assistant — it's intuition with intelligence.",
-    color: "from-orange-50 to-orange-100",
-    accent: "bg-orange-500",
+    title: "Cato AI",
+    subtitle: "Your Trading Brain",
+    description: "Your second brain for trading. Ask, analyze, forecast — intuition meets intelligence.",
+    accent: "bg-[#111827]",
   },
   {
     id: 5,
     icon: "📈",
     title: "MarketView",
-    description:
-      "Unlock live, multi‑asset charts—stocks, forex, crypto, commodities—all in one place with on-chart risk alerts. It's about managing the risks.",
-    color: "from-red-50 to-red-100",
-    accent: "bg-red-500",
+    subtitle: "Live Charts",
+    description: "Multi-asset charts with real-time data and on-chart risk alerts. Master the markets.",
+    accent: "bg-[#111827]",
   },
   {
     id: 6,
     icon: "⚡",
-    title: "Personalization & Experience",
-    description:
-      "Your space. Your vibe. Custom dashboards, smart notifications, seamless design. Tailored to how you trade best.",
-    color: "from-indigo-50 to-indigo-100",
-    accent: "bg-indigo-500",
+    title: "Personalization",
+    subtitle: "& Experience",
+    description: "Your space, your vibe. Custom dashboards and smart notifications tailored to you.",
+    accent: "bg-[#111827]",
   },
 ]
 
@@ -104,16 +99,18 @@ export function MobileEdgeSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide()
-    }, 4000)
+    }, 5000)
 
     return () => clearInterval(interval)
   }, [])
 
+  const currentFeature = edgeFeatures[currentIndex]
+
   return (
     <div ref={containerRef} className="relative">
-      {/* Main card container */}
+      {/* Glassmorphism Card Container */}
       <div
-        className="relative overflow-hidden rounded-2xl"
+        className="relative overflow-hidden rounded-3xl shadow-2xl"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -121,90 +118,148 @@ export function MobileEdgeSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -300 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
-              opacity: { duration: 0.2 },
+              duration: 0.6,
+              ease: [0.25, 0.1, 0.25, 1],
             }}
-            className={cn(
-              "bg-gradient-to-br p-6 min-h-[280px] flex flex-col justify-between relative overflow-hidden",
-              edgeFeatures[currentIndex].color,
-            )}
+            className="relative min-h-[320px] bg-white/95 backdrop-blur-xl border border-white/20 overflow-hidden"
           >
-            {/* Background decoration */}
-            <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-              <div className="text-6xl transform rotate-12 translate-x-4 -translate-y-2">
-                {edgeFeatures[currentIndex].icon}
-              </div>
+            {/* Subtle background pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-white/50" />
+
+            {/* Floating geometric elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div
+                animate={{
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }}
+                className="absolute top-4 right-4 w-16 h-16 border border-gray-200/30 rounded-full"
+              />
+              <motion.div
+                animate={{
+                  rotate: [360, 0],
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 15,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+                className="absolute bottom-4 left-4 w-8 h-8 bg-gray-100/50 rounded-lg"
+              />
             </div>
 
             {/* Content */}
-            <div className="relative z-10">
-              <div className="flex items-center mb-4">
-                <div
-                  className={cn(
-                    "w-12 h-12 rounded-full flex items-center justify-center text-white text-xl mr-4",
-                    edgeFeatures[currentIndex].accent,
-                  )}
-                >
-                  {edgeFeatures[currentIndex].icon}
+            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+              {/* Header */}
+              <div>
+                <div className="flex items-center mb-6">
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5, ease: "backOut" }}
+                    className="w-16 h-16 rounded-2xl bg-[#111827] flex items-center justify-center text-white text-2xl mr-4 shadow-lg"
+                  >
+                    {currentFeature.icon}
+                  </motion.div>
+                  <div className="flex items-center">
+                    <Sparkles className="h-4 w-4 text-gray-400 mr-2" />
+                    <span className="text-xs text-gray-500 font-medium tracking-wide uppercase">
+                      Feature {currentIndex + 1}
+                    </span>
+                  </div>
                 </div>
-                <div className={cn("w-2 h-2 rounded-full", edgeFeatures[currentIndex].accent)}></div>
+
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                >
+                  <h3 className="text-2xl font-display font-bold text-[#111827] mb-1 leading-tight">
+                    {currentFeature.title}
+                  </h3>
+                  <h4 className="text-lg font-display font-semibold text-gray-600 mb-4">{currentFeature.subtitle}</h4>
+                  <p className="text-gray-600 leading-relaxed">{currentFeature.description}</p>
+                </motion.div>
               </div>
 
-              <h3 className="text-xl font-display font-bold text-[#111827] mb-3 leading-tight">
-                {edgeFeatures[currentIndex].title}
-              </h3>
-
-              <p className="text-gray-700 text-sm leading-relaxed">{edgeFeatures[currentIndex].description}</p>
+              {/* Bottom accent */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+                className="h-1 bg-[#111827] rounded-full mt-6"
+                style={{ transformOrigin: "left" }}
+              />
             </div>
 
-            {/* Bottom accent line */}
-            <div className={cn("absolute bottom-0 left-0 right-0 h-1", edgeFeatures[currentIndex].accent)}></div>
+            {/* Glassmorphism overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Navigation controls */}
-      <div className="flex items-center justify-between mt-6">
-        <button
+      {/* Elegant navigation */}
+      <div className="flex items-center justify-between mt-8">
+        <motion.button
+          whileHover={{ scale: 1.05, x: -2 }}
+          whileTap={{ scale: 0.95 }}
           onClick={prevSlide}
-          className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          className="w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/20 shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:bg-gray-50/95"
         >
           <ChevronLeft className="h-5 w-5 text-gray-600" />
-        </button>
+        </motion.button>
 
-        {/* Dots indicator */}
-        <div className="flex space-x-2">
+        {/* Refined dots indicator */}
+        <div className="flex space-x-3">
           {edgeFeatures.map((_, index) => (
-            <button
+            <motion.button
               key={index}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
-                index === currentIndex ? "bg-[#111827] w-6" : "bg-gray-300 hover:bg-gray-400",
+                "transition-all duration-300 rounded-full",
+                index === currentIndex ? "w-8 h-3 bg-[#111827]" : "w-3 h-3 bg-gray-300 hover:bg-gray-400",
               )}
             />
           ))}
         </div>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05, x: 2 }}
+          whileTap={{ scale: 0.95 }}
           onClick={nextSlide}
-          className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          className="w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/20 shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:bg-gray-50/95"
         >
           <ChevronRight className="h-5 w-5 text-gray-600" />
-        </button>
+        </motion.button>
       </div>
 
-      {/* Feature counter */}
-      <div className="text-center mt-4">
-        <span className="text-sm text-gray-500">
-          {currentIndex + 1} of {edgeFeatures.length}
-        </span>
+      {/* Progress indicator */}
+      <div className="text-center mt-6">
+        <div className="flex items-center justify-center space-x-2 mb-2">
+          <span className="text-sm font-medium text-gray-600">
+            {currentIndex + 1} of {edgeFeatures.length}
+          </span>
+        </div>
+        <div className="w-24 h-1 bg-gray-200 rounded-full mx-auto overflow-hidden">
+          <motion.div
+            className="h-full bg-[#111827] rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentIndex + 1) / edgeFeatures.length) * 100}%` }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
+        </div>
       </div>
     </div>
   )

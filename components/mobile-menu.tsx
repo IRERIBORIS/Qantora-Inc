@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X } from "lucide-react"
+import { X, ArrowRight, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
@@ -16,7 +16,6 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection }: MobileMenuProps) {
-  // Close menu when ESC key is pressed
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -24,7 +23,6 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
 
     if (isOpen) {
       window.addEventListener("keydown", handleEsc)
-      // Prevent scrolling when menu is open
       document.body.style.overflow = "hidden"
     }
 
@@ -34,37 +32,54 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
     }
   }, [isOpen, onClose])
 
-  const menuVariants = {
+  const backdropVariants = {
     closed: {
-      x: "100%",
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      },
+      opacity: 0,
+      backdropFilter: "blur(0px)",
     },
     open: {
-      x: 0,
+      opacity: 1,
+      backdropFilter: "blur(20px)",
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
+        duration: 0.4,
+        ease: [0.25, 0.1, 0.25, 1],
+      },
+    },
+  }
+
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      scale: 0.95,
+      y: -20,
+    },
+    open: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: [0.25, 0.1, 0.25, 1],
+        staggerChildren: 0.1,
       },
     },
   }
 
   const itemVariants = {
-    closed: { x: 20, opacity: 0 },
-    open: (i: number) => ({
-      x: 0,
+    closed: {
+      opacity: 0,
+      x: -20,
+      scale: 0.95,
+    },
+    open: {
       opacity: 1,
+      x: 0,
+      scale: 1,
       transition: {
-        delay: i * 0.1,
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
+        duration: 0.3,
+        ease: [0.25, 0.1, 0.25, 1],
       },
-    }),
+    },
   }
 
   const handleItemClick = (id: string) => {
@@ -76,79 +91,112 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop with blur */}
+          {/* Premium Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/20"
+            variants={backdropVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
             onClick={onClose}
           />
 
-          {/* Menu */}
+          {/* Menu Container */}
           <motion.div
-            className="fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-white z-50 shadow-xl flex flex-col"
+            className="fixed inset-x-4 top-4 bottom-4 z-50 flex flex-col"
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
-            {/* Header with brand */}
-            <div className="flex items-center justify-between p-5 border-b border-gray-100">
-              <div className="flex items-center">
-                <BrandLogo size="sm" withText textClassName="text-sm" />
-              </div>
-              <button
-                onClick={onClose}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+            {/* Glassmorphism Card */}
+            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 flex flex-col h-full overflow-hidden">
+              {/* Elegant Header */}
+              <div className="relative p-6 border-b border-gray-100/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <BrandLogo size="sm" className="mr-3" />
+                    <div>
+                      <h2 className="font-display font-bold text-[#111827] text-lg tracking-tight">QANTORA</h2>
+                      <p className="text-gray-500 text-xs">Navigation Menu</p>
+                    </div>
+                  </div>
 
-            {/* Menu Items */}
-            <div className="flex-1 overflow-y-auto py-6 px-4">
-              <nav className="flex flex-col space-y-2">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onClose}
+                    className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all duration-300"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5 text-gray-600" />
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Navigation Items */}
+              <div className="flex-1 p-6 space-y-3 overflow-y-auto">
                 {items.map((item, i) => (
                   <motion.button
                     key={item.id}
-                    custom={i}
                     variants={itemVariants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
                     onClick={() => handleItemClick(item.id)}
                     className={cn(
-                      "py-3 px-4 text-left rounded-lg transition-all duration-300 flex items-center",
+                      "w-full group relative overflow-hidden rounded-2xl p-4 text-left transition-all duration-300",
                       activeSection === item.id
-                        ? "bg-gray-100 text-gray-900 font-medium"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                        ? "bg-[#111827] text-white shadow-lg"
+                        : "bg-gray-50/80 hover:bg-gray-100/80 text-gray-700 hover:text-[#111827]",
                     )}
                   >
-                    <span
-                      className={cn(
-                        "w-1.5 h-1.5 rounded-full mr-3 transition-all duration-300",
-                        activeSection === item.id ? "bg-[#111827]" : "bg-gray-300",
-                      )}
-                    ></span>
-                    {item.label}
+                    <div className="relative flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div
+                          className={cn(
+                            "w-2 h-2 rounded-full mr-4 transition-all duration-300",
+                            activeSection === item.id ? "bg-white" : "bg-gray-400",
+                          )}
+                        />
+                        <span className="font-medium text-base">{item.label}</span>
+                      </div>
+                      <ArrowRight
+                        className={cn(
+                          "h-4 w-4 transition-all duration-300 transform group-hover:translate-x-1",
+                          activeSection === item.id ? "text-white" : "text-gray-400",
+                        )}
+                      />
+                    </div>
+
+                    {/* Hover effect */}
+                    {activeSection !== item.id && (
+                      <div className="absolute inset-0 bg-[#111827] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left opacity-0 group-hover:opacity-5 rounded-2xl" />
+                    )}
                   </motion.button>
                 ))}
-              </nav>
-            </div>
+              </div>
 
-            {/* Footer */}
-            <div className="p-5 border-t border-gray-100">
-              <Link href="/waitlist">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-3 px-4 bg-[#111827] hover:bg-[#1F2937] text-white rounded-lg transition-all duration-300 font-medium"
+              {/* Premium CTA */}
+              <div className="p-6 border-t border-gray-100/50">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
                 >
-                  Join Waitlist
-                </motion.button>
-              </Link>
+                  <Link href="/waitlist">
+                    <motion.button
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-[#111827] hover:bg-[#1F2937] text-white py-4 px-6 rounded-2xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden group"
+                    >
+                      <span className="relative z-10 flex items-center justify-center">
+                        <Sparkles className="h-4 w-4 mr-2" />
+                        Join Waitlist
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                      <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </>

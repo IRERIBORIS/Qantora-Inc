@@ -1,47 +1,45 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
-import { ArrowRight, Sparkles, Users, Zap, TrendingUp } from "lucide-react"
+import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion"
+import { ArrowRight, Check, Sparkles, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
-const benefits = [
+const experienceSteps = [
   {
-    icon: Zap,
+    step: "1",
     title: "Immediate AI Access",
-    description: "Get hands-on with Cato AI from day one",
-    color: "text-yellow-600",
-    bg: "bg-yellow-50",
+    description:
+      "From day one, get hands-on with Cato AI and MarketView charts. Make data-driven decisions from the start.",
   },
   {
-    icon: Users,
+    step: "2",
     title: "Community Connection",
-    description: "Join live discussions with fellow traders",
-    color: "text-blue-600",
-    bg: "bg-blue-50",
+    description:
+      "Join live discussions with fellow traders. Share insights, strategies, and grow together in a supportive environment.",
   },
   {
-    icon: TrendingUp,
+    step: "3",
     title: "Evolving Platform",
-    description: "Shape the future with direct feedback",
-    color: "text-green-600",
-    bg: "bg-green-50",
+    description: "Shape the future of Qantora with direct feedback. Early members influence our roadmap and features.",
   },
-  {
-    icon: Sparkles,
-    title: "Founding Member",
-    description: "Exclusive benefits and early access",
-    color: "text-purple-600",
-    bg: "bg-purple-50",
-  },
+]
+
+const benefits = [
+  "Priority access to all new features",
+  "Exclusive educational content",
+  "Founding member status & benefits",
+  "Direct access to the founding team",
+  "Special pricing for early adopters",
 ]
 
 export function MobileReserveSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-50px" })
   const [currentStep, setCurrentStep] = useState(0)
+  const [showBenefits, setShowBenefits] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -61,148 +59,184 @@ export function MobileReserveSection() {
     if (!isInView) return
 
     const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % 4)
-    }, 2000)
+      setCurrentStep((prev) => {
+        const next = (prev + 1) % (experienceSteps.length + 1)
+        if (next === experienceSteps.length) {
+          setShowBenefits(true)
+          return 0
+        } else {
+          setShowBenefits(false)
+          return next
+        }
+      })
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [isInView])
 
+  const currentExperienceStep = experienceSteps[currentStep]
+
   return (
-    <div ref={containerRef} className="min-h-[120vh] relative flex flex-col items-center">
-      <div className="sticky top-[25vh] w-full max-w-sm mx-auto px-4">
+    <div ref={containerRef} className="min-h-[120vh] relative flex flex-col items-center py-12">
+      <div className="sticky top-[25vh] w-full max-w-md mx-auto px-4">
         <motion.div
           style={{
             y: smoothY,
             opacity: smoothOpacity,
             scale: smoothScale,
           }}
-          className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+          className="relative"
         >
-          {/* Header */}
-          <div className="bg-gradient-to-r from-[#111827] to-gray-800 p-6 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div className="relative z-10">
-              <h3 className="text-xl font-display font-bold mb-2">The Qantora Experience</h3>
-              <p className="text-gray-200 text-sm">Your journey to smarter trading starts here</p>
-            </div>
-          </div>
+          {/* Main glassmorphism card */}
+          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+            {/* Header */}
+            <div className="relative bg-[#111827] p-8">
+              {/* Subtle pattern overlay */}
+              <div
+                className="absolute inset-0 opacity-10"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
 
-          {/* Content */}
-          <div className="p-6">
-            {/* Progress indicator */}
-            <div className="flex justify-center mb-6">
-              <div className="flex space-x-2">
-                {[0, 1, 2, 3].map((step) => (
-                  <div
-                    key={step}
-                    className={cn(
-                      "w-2 h-2 rounded-full transition-all duration-500",
-                      step === currentStep ? "bg-[#111827] w-6" : "bg-gray-200",
-                    )}
-                  />
-                ))}
+              <div className="relative text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Sparkles className="h-5 w-5 text-white mr-2" />
+                  <span className="text-white text-sm font-medium tracking-wide">EARLY ACCESS</span>
+                </div>
+                <h3 className="text-2xl font-display font-bold text-white mb-2">The Qantora Experience</h3>
+                <p className="text-gray-300 text-sm">Join the trading evolution</p>
               </div>
             </div>
 
-            {/* Animated benefits */}
-            <div className="space-y-4 mb-6">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0.3, x: -20 }}
-                  animate={{
-                    opacity: index === currentStep ? 1 : 0.3,
-                    x: index === currentStep ? 0 : -20,
-                    scale: index === currentStep ? 1 : 0.95,
-                  }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className={cn(
-                    "flex items-start p-4 rounded-xl transition-all duration-500",
-                    index === currentStep ? benefit.bg : "bg-gray-50",
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "w-10 h-10 rounded-full flex items-center justify-center mr-4 transition-all duration-500",
-                      index === currentStep ? "bg-white shadow-md" : "bg-white/50",
-                    )}
-                  >
-                    <benefit.icon
-                      className={cn(
-                        "h-5 w-5 transition-all duration-500",
-                        index === currentStep ? benefit.color : "text-gray-400",
-                      )}
-                    />
+            {/* Content */}
+            <div className="p-8">
+              {!showBenefits ? (
+                <>
+                  {/* Progress indicator */}
+                  <div className="flex justify-center mb-8">
+                    <div className="flex space-x-2">
+                      {experienceSteps.map((_, index) => (
+                        <motion.div
+                          key={index}
+                          className={cn(
+                            "h-2 rounded-full transition-all duration-500",
+                            index === currentStep ? "w-8 bg-[#111827]" : "w-2 bg-gray-200",
+                          )}
+                          animate={{
+                            scale: index === currentStep ? 1.1 : 1,
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4
-                      className={cn(
-                        "font-semibold mb-1 transition-all duration-500",
-                        index === currentStep ? "text-[#111827]" : "text-gray-500",
-                      )}
+
+                  {/* Experience step */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentStep}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                      className="mb-8"
                     >
-                      {benefit.title}
-                    </h4>
-                    <p
-                      className={cn(
-                        "text-sm transition-all duration-500",
-                        index === currentStep ? "text-gray-700" : "text-gray-400",
-                      )}
-                    >
-                      {benefit.description}
-                    </p>
+                      <div className="flex items-start">
+                        <div className="w-12 h-12 rounded-full bg-[#111827] text-white flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
+                          <span className="text-lg font-bold">{currentExperienceStep.step}</span>
+                        </div>
+                        <div>
+                          <h4 className="text-lg font-display font-bold text-[#111827] mb-3 leading-tight">
+                            {currentExperienceStep.title}
+                          </h4>
+                          <p className="text-gray-600 leading-relaxed">{currentExperienceStep.description}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </>
+              ) : (
+                /* Benefits showcase */
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="mb-8"
+                >
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 bg-[#111827] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <Star className="h-8 w-8 text-white" />
+                    </div>
+                    <h4 className="font-display font-bold text-[#111827] text-xl mb-2">Early Access Benefits</h4>
+                    <p className="text-gray-600">Exclusive advantages for founding members</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                        className="flex items-center p-4 bg-gray-50/80 rounded-xl border border-gray-100/50"
+                      >
+                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="h-3.5 w-3.5 text-[#111827]" />
+                        </div>
+                        <span className="text-gray-700 text-sm font-medium">{benefit}</span>
+                      </motion.div>
+                    ))}
                   </div>
                 </motion.div>
-              ))}
-            </div>
+              )}
 
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <Link href="/waitlist">
-                <Button className="w-full bg-[#111827] hover:bg-[#1F2937] h-12 text-base group transition-all duration-500 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 relative overflow-hidden">
-                  <span className="relative z-10">Join the Waitlist</span>
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
-                  <span className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
-                </Button>
-              </Link>
-              <p className="text-xs text-gray-500 mt-3 text-center">Limited spots available for early access</p>
-            </motion.div>
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <Link href="/waitlist">
+                  <Button className="w-full bg-[#111827] hover:bg-[#1F2937] h-14 text-base group transition-all duration-500 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 relative overflow-hidden rounded-2xl">
+                    <span className="relative z-10 flex items-center justify-center font-medium">
+                      Join the Waitlist
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                    <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+                  </Button>
+                </Link>
+                <p className="text-xs text-gray-500 mt-4 text-center">Limited spots available for early access</p>
+              </motion.div>
+            </div>
           </div>
 
-          {/* Bottom decoration */}
-          <div className="h-1 bg-gradient-to-r from-[#111827] via-gray-600 to-[#111827]"></div>
+          {/* Floating accent elements */}
+          <motion.div
+            animate={{
+              y: [0, -10, 0],
+              rotate: [0, 5, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+            className="absolute -top-4 -right-4 w-8 h-8 bg-[#111827] rounded-lg opacity-20 shadow-lg"
+          />
+          <motion.div
+            animate={{
+              y: [0, 10, 0],
+              rotate: [0, -5, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            className="absolute -bottom-4 -left-4 w-6 h-6 bg-gray-400 rounded-full opacity-30 shadow-lg"
+          />
         </motion.div>
-
-        {/* Floating elements */}
-        <motion.div
-          animate={{
-            y: [0, -10, 0],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-          className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full opacity-80"
-        />
-        <motion.div
-          animate={{
-            y: [0, 10, 0],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-          className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full opacity-80"
-        />
       </div>
     </div>
   )
