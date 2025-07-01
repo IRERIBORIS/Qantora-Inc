@@ -3,21 +3,7 @@ import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  ChevronRight,
-  Home,
-  Info,
-  Zap,
-  MessageSquare,
-  ArrowRight,
-  BarChart3,
-  DiscIcon as Discord,
-  Mail,
-  Phone,
-  Plus,
-  Minus,
-  Check,
-} from "lucide-react"
+import { ChevronRight, Home, Info, Zap, MessageSquare, ArrowRight, Mail, Phone, Plus, Minus } from "lucide-react"
 import { BrandLogo } from "@/components/brand-logo"
 import { Navbar } from "@/components/navbar"
 import { BottomSheet } from "@/components/ui/bottom-sheet"
@@ -28,7 +14,6 @@ import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { motion } from "framer-motion"
 import { MobileEdgeSection } from "@/components/mobile-edge-section"
-import { MobileReserveSection } from "@/components/mobile-reserve-section"
 
 export default function LandingPage() {
   const [mounted, setMounted] = useState(false)
@@ -45,11 +30,11 @@ export default function LandingPage() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
+  // Updated sections - removed "reserve"
   const sections = useRef([
     { id: "home", icon: Home, label: "Home" },
     { id: "why", icon: Info, label: "Why" },
     { id: "edge", icon: Zap, label: "Edge" },
-    { id: "reserve", icon: BarChart3, label: "Reserve" },
     { id: "faq", icon: MessageSquare, label: "FAQ" },
   ])
 
@@ -72,7 +57,7 @@ export default function LandingPage() {
     {
       question: "How do I get started?",
       answer:
-        "Click the 'Join Waitlist' button to secure your spot. You'll be one of the first to experience Qantora's full suite of tools, early-access features, and exclusive founder benefits.",
+        "Click the 'Get Started' button to create your account and begin your journey with Qantora's full suite of tools, AI-powered insights, and our thriving trading community.",
     },
     {
       question: "What features does Qantora offer?",
@@ -282,16 +267,16 @@ export default function LandingPage() {
                   />
                 </motion.div>
 
-                {/* Enhance the hero section buttons with micro-interactions: */}
+                {/* Enhanced CTA button */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                   className={cn("pt-4", isMobile && "hero-cta-mobile")}
                 >
-                  <Link href="/waitlist">
+                  <Link href="/auth">
                     <Button className="bg-[#111827] hover:bg-[#1F2937] h-12 md:h-14 px-6 md:px-8 text-base group transition-all duration-500 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 relative overflow-hidden">
-                      <span className="relative z-10">Join Waitlist</span>
+                      <span className="relative z-10">Get Started</span>
                       <ChevronRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
                       <span className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
                     </Button>
@@ -337,7 +322,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Your Edge Section - UPDATED for consistent card sizes */}
+        {/* Your Edge Section */}
         <section
           id="edge"
           ref={(el) => (sectionRefs.current[2] = el)}
@@ -369,7 +354,6 @@ export default function LandingPage() {
             {/* Desktop Grid - Hidden on mobile */}
             <div className="mt-10 md:mt-16 max-w-6xl mx-auto hidden md:block">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {/* Desktop cards remain the same */}
                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-gray-200 h-full flex flex-col group">
                   <CardHeader className="pb-2 transition-all duration-300 group-hover:pb-4">
                     <CardTitle className="text-lg md:text-xl font-display flex items-center">
@@ -482,148 +466,11 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Reserve / Waitlist Section - Redesigned for larger screens */}
-        <section
-          id="reserve"
-          ref={(el) => (sectionRefs.current[3] = el)}
-          className="section-fullscreen w-full bg-[#F9FAFB] relative overflow-hidden flex items-center"
-        >
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-6 text-center">
-              <div className="space-y-4">
-                <div className="inline-block rounded-lg bg-white px-3 py-1 text-sm text-[#111827] shadow-sm">
-                  Reserve Your Spot
-                </div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight text-[#111827]">
-                  Join the Trading Evolution
-                </h2>
-              </div>
-            </div>
-
-            {/* Desktop version - Redesigned for larger screens */}
-            <div className="max-w-6xl mx-auto mt-12 md:mt-16 hidden md:block">
-              <div className="grid md:grid-cols-12 gap-8 items-center">
-                <div className="md:col-span-7">
-                  <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10 relative overflow-hidden">
-                    {/* Background decoration */}
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-gray-50 to-transparent rounded-full -translate-y-1/2 translate-x-1/2 opacity-70"></div>
-
-                    <h3 className="text-2xl md:text-3xl font-display font-bold text-[#111827] mb-6 relative z-10">
-                      The Qantora Experience
-                    </h3>
-
-                    <div className="space-y-6 relative z-10">
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#111827] text-white flex items-center justify-center mr-4">
-                          <span className="text-lg font-semibold">1</span>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#111827] mb-2">Immediate AI Access</h4>
-                          <p className="text-gray-600">
-                            From day one, get hands-on with Cato AI and MarketView charts. Make data-driven decisions
-                            from the start.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#111827] text-white flex items-center justify-center mr-4">
-                          <span className="text-lg font-semibold">2</span>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#111827] mb-2">Community Connection</h4>
-                          <p className="text-gray-600">
-                            Join live discussions with fellow traders. Share insights, strategies, and grow together in
-                            a supportive environment.
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#111827] text-white flex items-center justify-center mr-4">
-                          <span className="text-lg font-semibold">3</span>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#111827] mb-2">Evolving Platform</h4>
-                          <p className="text-gray-600">
-                            Shape the future of Qantora with direct feedback. Early members influence our roadmap and
-                            features.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom decoration */}
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-                  </div>
-                </div>
-
-                <div className="md:col-span-5">
-                  <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10 h-full flex flex-col">
-                    <h3 className="text-2xl font-display font-bold text-[#111827] mb-6">Early Access Benefits</h3>
-
-                    <ul className="space-y-4 mb-8 flex-grow">
-                      <li className="flex items-center">
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
-                        </div>
-                        <span className="text-gray-700">Priority access to all new features</span>
-                      </li>
-                      <li className="flex items-center">
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
-                        </div>
-                        <span className="text-gray-700">Exclusive educational content</span>
-                      </li>
-                      <li className="flex items-center">
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
-                        </div>
-                        <span className="text-gray-700">Founding member status & benefits</span>
-                      </li>
-                      <li className="flex items-center">
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
-                        </div>
-                        <span className="text-gray-700">Direct access to the founding team</span>
-                      </li>
-                      <li className="flex items-center">
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
-                        </div>
-                        <span className="text-gray-700">Special pricing for early adopters</span>
-                      </li>
-                    </ul>
-
-                    <Link href="/waitlist">
-                      <Button className="w-full bg-[#111827] hover:bg-[#1F2937] h-14 px-8 text-base group transition-all duration-500 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 relative overflow-hidden">
-                        <span className="relative z-10">Join the Waitlist</span>
-                        <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
-                        <span className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
-                      </Button>
-                    </Link>
-                    <p className="text-sm text-gray-500 mt-4 text-center">Limited spots available for early access</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile version with enhanced design */}
-            <div className="md:hidden">
-              {isMobile && (
-                <div className="mt-8">
-                  <MobileReserveSection />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Redesigned FAQ Section */}
+        {/* FAQ Section */}
         <section
           id="faq"
-          ref={(el) => (sectionRefs.current[4] = el)}
-          className="section-fullscreen w-full bg-white relative overflow-hidden flex items-center py-16 md:py-24"
+          ref={(el) => (sectionRefs.current[3] = el)}
+          className="section-fullscreen w-full bg-[#F9FAFB] relative overflow-hidden flex items-center py-16 md:py-24"
         >
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center mb-8 md:mb-12">
@@ -639,7 +486,7 @@ export default function LandingPage() {
             </div>
 
             <div className="max-w-3xl mx-auto">
-              {/* Redesigned FAQ Accordion */}
+              {/* FAQ Accordion */}
               <div className="space-y-4">
                 {faqData.map((faq, index) => (
                   <div
@@ -685,9 +532,9 @@ export default function LandingPage() {
 
               <div className="mt-12 text-center">
                 <p className="text-gray-600 mb-6">Ready to experience Qantora?</p>
-                <Link href="/waitlist">
+                <Link href="/auth">
                   <Button className="bg-[#111827] hover:bg-[#1F2937] h-12 px-6 text-base group transition-all duration-300 hover:shadow-lg">
-                    Join Waitlist
+                    Get Started
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
@@ -697,7 +544,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      {/* Enhanced Footer for Larger Screens */}
+      {/* Enhanced Footer */}
       <footer className="w-full border-t border-gray-100 py-12 md:py-20 lg:py-24 bg-white">
         <div className="container px-4 md:px-6">
           {/* Enhanced Desktop Footer */}
@@ -713,17 +560,8 @@ export default function LandingPage() {
                   Built by traders. Powered by intelligence. Designed for your edge. Qantora provides AI-driven tools
                   and resources to help everyday traders succeed in the market.
                 </p>
-                {/* Enhance the social media icons in the footer with micro-interactions: */}
+                {/* Social media icons */}
                 <div className="flex items-center gap-6">
-                  <a
-                    href="https://discord.com/users/_iamdamir"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-[#111827] transition-all duration-300 hover:-translate-y-1 hover:scale-110"
-                    aria-label="Discord"
-                  >
-                    <Discord className="h-6 w-6" />
-                  </a>
                   <a
                     href="mailto:qantoratech@gmail.com"
                     className="text-gray-500 hover:text-[#111827] transition-all duration-300 hover:-translate-y-1 hover:scale-110"
@@ -827,7 +665,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Mobile Footer (updated) */}
+          {/* Mobile Footer */}
           <div className="lg:hidden">
             <div className="flex flex-col space-y-8">
               {/* Brand and Description */}
@@ -840,15 +678,6 @@ export default function LandingPage() {
                   Built by traders. Powered by intelligence. Designed for your edge.
                 </p>
                 <div className="flex items-center justify-center md:justify-start gap-4 mt-6">
-                  <a
-                    href="https://discord.com/users/_iamdamir"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-[#111827] transition-all duration-300 hover:-translate-y-1 hover:scale-110"
-                    aria-label="Discord"
-                  >
-                    <Discord className="h-5 w-5" />
-                  </a>
                   <a
                     href="mailto:qantoratech@gmail.com"
                     className="text-gray-500 hover:text-[#111827] transition-all duration-300 hover:-translate-y-1 hover:scale-110"

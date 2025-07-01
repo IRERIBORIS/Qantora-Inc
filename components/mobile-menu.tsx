@@ -2,10 +2,9 @@
 
 import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ArrowRight, Sparkles } from "lucide-react"
+import { X, ArrowRight, Mail, Phone, ExternalLink, Sparkles, Home, Info, Zap, MessageSquare } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { BrandLogo } from "@/components/brand-logo"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -39,7 +38,7 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
     },
     open: {
       opacity: 1,
-      backdropFilter: "blur(20px)",
+      backdropFilter: "blur(24px)",
       transition: {
         duration: 0.4,
         ease: [0.25, 0.1, 0.25, 1],
@@ -60,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
       transition: {
         duration: 0.4,
         ease: [0.25, 0.1, 0.25, 1],
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   }
@@ -68,12 +67,12 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
   const itemVariants = {
     closed: {
       opacity: 0,
-      x: -20,
+      y: 20,
       scale: 0.95,
     },
     open: {
       opacity: 1,
-      x: 0,
+      y: 0,
       scale: 1,
       transition: {
         duration: 0.3,
@@ -87,13 +86,21 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
     onClose()
   }
 
+  // Icon mapping for navigation items
+  const iconMap: { [key: string]: any } = {
+    home: Home,
+    why: Info,
+    edge: Zap,
+    faq: MessageSquare,
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Premium Backdrop */}
+          {/* Enhanced Backdrop */}
           <motion.div
-            className="fixed inset-0 z-40 bg-black/20"
+            className="fixed inset-0 z-40 bg-black/30"
             variants={backdropVariants}
             initial="closed"
             animate="open"
@@ -101,95 +108,163 @@ export function MobileMenu({ isOpen, onClose, items, onItemClick, activeSection 
             onClick={onClose}
           />
 
-          {/* Menu Container */}
+          {/* Menu Container - iPhone-style with bento grid */}
           <motion.div
-            className="fixed inset-x-4 top-4 bottom-4 z-50 flex flex-col"
+            className="fixed inset-x-4 top-4 bottom-4 z-50 flex flex-col max-w-sm mx-auto"
             variants={menuVariants}
             initial="closed"
             animate="open"
             exit="closed"
           >
-            {/* Glassmorphism Card */}
-            <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 flex flex-col h-full overflow-hidden">
+            {/* Premium Glassmorphism Card */}
+            <div className="bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/30 flex flex-col h-full overflow-hidden">
               {/* Elegant Header */}
-              <div className="relative p-6 border-b border-gray-100/50">
+              <div className="relative p-6 bg-gradient-to-r from-black to-black/90 text-white">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <BrandLogo size="sm" className="mr-3" />
-                    <div>
-                      <h2 className="font-display font-bold text-[#111827] text-lg tracking-tight">QANTORA</h2>
-                      <p className="text-gray-500 text-xs">Navigation Menu</p>
-                    </div>
+                  <div>
+                    <h2 className="font-display font-bold text-white text-xl tracking-[0.3em] uppercase">QANTORA</h2>
+                    <p className="text-white/80 text-sm mt-1">Menu</p>
                   </div>
 
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, rotate: 90 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={onClose}
-                    className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all duration-300"
+                    className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all duration-300 backdrop-blur-sm"
                     aria-label="Close menu"
                   >
-                    <X className="h-5 w-5 text-gray-600" />
+                    <X className="h-5 w-5 text-white" />
                   </motion.button>
                 </div>
+
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
               </div>
 
-              {/* Navigation Items */}
-              <div className="flex-1 p-6 space-y-3 overflow-y-auto">
-                {items.map((item, i) => (
-                  <motion.button
-                    key={item.id}
-                    variants={itemVariants}
-                    onClick={() => handleItemClick(item.id)}
-                    className={cn(
-                      "w-full group relative overflow-hidden rounded-2xl p-4 text-left transition-all duration-300",
-                      activeSection === item.id
-                        ? "bg-[#111827] text-white shadow-lg"
-                        : "bg-gray-50/80 hover:bg-gray-100/80 text-gray-700 hover:text-[#111827]",
-                    )}
-                  >
-                    <div className="relative flex items-center justify-between">
-                      <div className="flex items-center">
-                        <div
+              {/* Bento Grid Content - No scrolling needed */}
+              <div className="flex-1 p-6">
+                {/* Navigation Grid - 2x2 */}
+                <motion.div variants={itemVariants} className="mb-6">
+                  <h3 className="text-black font-display font-semibold text-lg mb-4 flex items-center">
+                    <Sparkles className="h-5 w-5 mr-2 text-black" />
+                    Navigation
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {items.map((item) => {
+                      const IconComponent = iconMap[item.id] || Home
+                      return (
+                        <motion.button
+                          key={item.id}
+                          variants={itemVariants}
+                          onClick={() => handleItemClick(item.id)}
                           className={cn(
-                            "w-2 h-2 rounded-full mr-4 transition-all duration-300",
-                            activeSection === item.id ? "bg-white" : "bg-gray-400",
+                            "group relative overflow-hidden rounded-2xl p-4 text-left transition-all duration-300 aspect-square flex flex-col items-center justify-center",
+                            activeSection === item.id
+                              ? "bg-black text-white shadow-lg transform scale-[1.02]"
+                              : "bg-black/5 hover:bg-black/10 text-black hover:shadow-md hover:transform hover:scale-[1.01]",
                           )}
-                        />
-                        <span className="font-medium text-base">{item.label}</span>
-                      </div>
-                      <ArrowRight
-                        className={cn(
-                          "h-4 w-4 transition-all duration-300 transform group-hover:translate-x-1",
-                          activeSection === item.id ? "text-white" : "text-gray-400",
-                        )}
-                      />
-                    </div>
+                        >
+                          <IconComponent
+                            className={cn(
+                              "h-6 w-6 mb-2 transition-all duration-300",
+                              activeSection === item.id ? "text-white" : "text-black/70",
+                            )}
+                          />
+                          <span className="font-medium text-sm text-center">{item.label}</span>
 
-                    {/* Hover effect */}
-                    {activeSection !== item.id && (
-                      <div className="absolute inset-0 bg-[#111827] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left opacity-0 group-hover:opacity-5 rounded-2xl" />
-                    )}
-                  </motion.button>
-                ))}
+                          {/* Hover effect */}
+                          {activeSection !== item.id && (
+                            <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-black/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-2xl" />
+                          )}
+                        </motion.button>
+                      )
+                    })}
+                  </div>
+                </motion.div>
+
+                {/* Contact Section - Horizontal cards */}
+                <motion.div variants={itemVariants} className="mb-6">
+                  <h3 className="font-display font-semibold text-black text-lg mb-4 flex items-center">
+                    <Phone className="h-5 w-5 mr-2 text-black" />
+                    Contact
+                  </h3>
+                  <div className="space-y-3">
+                    <motion.div variants={itemVariants}>
+                      <a
+                        href="mailto:qantoratech@gmail.com"
+                        className="flex items-center p-4 bg-gradient-to-r from-black/5 to-black/8 hover:from-black/10 hover:to-black/15 rounded-2xl transition-all duration-300 group"
+                      >
+                        <div className="w-10 h-10 bg-black/10 rounded-xl flex items-center justify-center mr-3 group-hover:bg-black/20 transition-colors">
+                          <Mail className="h-5 w-5 text-black" />
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-sm font-semibold text-black block">Email Support</span>
+                          <p className="text-xs text-black/60">qantoratech@gmail.com</p>
+                        </div>
+                        <ExternalLink className="h-4 w-4 text-black/40 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </motion.div>
+
+                    <motion.div variants={itemVariants}>
+                      <a
+                        href="https://wa.me/+17165412204"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center p-4 bg-gradient-to-r from-black/5 to-black/8 hover:from-black/10 hover:to-black/15 rounded-2xl transition-all duration-300 group"
+                      >
+                        <div className="w-10 h-10 bg-black/10 rounded-xl flex items-center justify-center mr-3 group-hover:bg-black/20 transition-colors">
+                          <Phone className="h-5 w-5 text-black" />
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-sm font-semibold text-black block">WhatsApp</span>
+                          <p className="text-xs text-black/60">+1 (716) 541-2204</p>
+                        </div>
+                        <ExternalLink className="h-4 w-4 text-black/40 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* Legal Links - Compact grid */}
+                <motion.div variants={itemVariants} className="mb-6">
+                  <h3 className="font-display font-semibold text-black text-lg mb-4">Legal</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link
+                      href="#"
+                      className="text-sm text-black/60 hover:text-black transition-colors p-3 hover:bg-black/5 rounded-xl text-center"
+                    >
+                      Privacy
+                    </Link>
+                    <Link
+                      href="#"
+                      className="text-sm text-black/60 hover:text-black transition-colors p-3 hover:bg-black/5 rounded-xl text-center"
+                    >
+                      Terms
+                    </Link>
+                  </div>
+                </motion.div>
+
+                {/* Copyright */}
+                <motion.div variants={itemVariants}>
+                  <p className="text-xs text-black/40 text-center py-2">
+                    © {new Date().getFullYear()} Qantora. All rights reserved.
+                  </p>
+                </motion.div>
               </div>
 
-              {/* Premium CTA */}
-              <div className="p-6 border-t border-gray-100/50">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                >
-                  <Link href="/waitlist">
+              {/* Enhanced CTA Button */}
+              <div className="p-6 border-t border-black/10 bg-gradient-to-t from-black/2 to-transparent">
+                <motion.div variants={itemVariants}>
+                  <Link href="/auth">
                     <motion.button
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full bg-[#111827] hover:bg-[#1F2937] text-white py-4 px-6 rounded-2xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden group"
+                      className="w-full bg-gradient-to-r from-black to-black/90 hover:from-black/90 hover:to-black text-white py-4 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden group"
                     >
                       <span className="relative z-10 flex items-center justify-center">
                         <Sparkles className="h-4 w-4 mr-2" />
-                        Join Waitlist
+                        Get Started
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </span>
                       <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />

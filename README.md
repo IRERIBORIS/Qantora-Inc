@@ -1,14 +1,14 @@
-# Qantora - Modern Landing Page with Supabase Integration
+# Qantora - Modern AI-Powered Trading Platform Landing Page
 
-This project is a modern landing page for Qantora, an AI-driven fintech platform designed specifically for retail traders and investors. The landing page includes a waitlist feature that integrates with Supabase to store user information.
+This is a clean, functional landing page for Qantora, an AI-driven trading platform designed specifically for retail traders and investors. The website features a comprehensive design system, responsive layouts, and seamless user experience across all devices.
 
 ## Features
 
-- **Responsive Design**: Optimized for all screen sizes with consistent visual elements
-- **Enhanced UX**: Smooth scroll animations, micro-interactions, and immersive scrolling
-- **Modern Aesthetics**: Glassmorphism effects, blur animations, and premium card design
-- **Comprehensive Waitlist Flow**: Multi-step conversational UI with detailed user profiling
-- **Supabase Integration**: Secure storage of waitlist sign-ups with error handling
+- **Responsive Design**: Optimized for all screen sizes with consistent visual elements and mobile-first approach
+- **Enhanced UX**: Smooth scroll animations, micro-interactions, and immersive scrolling experiences
+- **Modern Aesthetics**: Clean design with subtle animations and premium layouts
+- **Authentication System**: Complete sign-in/sign-up flow with form validation
+- **Mobile-Optimized**: Proper hamburger menu following UI/UX best practices
 
 ## Design System
 
@@ -18,8 +18,8 @@ The website follows a consistent design system with the following elements:
 
 - **Primary Background**: White (#FFFFFF)
 - **Secondary Background**: Light Gray (#F9FAFB)
-- **Accent Background**: Dark Gray (#2b2f36)
-- **Text Colors**: Dark Gray (#111827), Medium Gray (#6B7280), Light Gray (#9CA3AF)
+- **Accent Background**: Black (#111827)
+- **Text Colors**: Black (#111827), Medium Gray (#6B7280), Light Gray (#9CA3AF)
 
 ### Typography
 
@@ -27,335 +27,199 @@ The website follows a consistent design system with the following elements:
 - **Body Font**: System font stack (paragraphs, UI elements)
 - **Font Weights**: 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold)
 
-### Components
+### Brand Identity
 
-- Glassmorphism cards with hover effects
-- Animated buttons with pulse effects
-- Micro-interactions for improved user engagement
-- Scroll-triggered animations
-- Responsive header with shrinking effect
-- Enhanced footer with social links
+- **Logo**: Modern "Q" symbol with clean, minimalist design
+- **Brand Name**: QANTORA in uppercase with optimized letter spacing
+- **Color Scheme**: Black and white with subtle gray accents
 
-## Supabase Integration
+## Technology Stack
 
-The project uses Supabase for storing waitlist sign-ups. Here's how the integration works:
+### Frontend Framework
+- **Next.js 14+** with App Router
+- **React 18+** with TypeScript
+- **Tailwind CSS** for styling and responsive design
 
-### Database Schema
+### UI Components
+- **shadcn/ui** component library
+- **Framer Motion** for animations and transitions
+- **Lucide React** for icons
+- **Custom components** for brand-specific elements
 
-The waitlist information is stored in a `waitlist` table with the following schema:
+### Development Tools
+- **TypeScript** for type safety
+- **ESLint** for code linting
+- **Prettier** for code formatting
 
-\`\`\`sql
-CREATE TABLE waitlist (
-  id SERIAL PRIMARY KEY,
-  full_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  username VARCHAR(100) NOT NULL,
-  preferred_name VARCHAR(100),
-  experience VARCHAR(50),
-  interests TEXT[],
-  referred_by VARCHAR(100),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  status VARCHAR(50) DEFAULT 'pending'
-);
+### Fonts and Assets
+- **Clash Display** from Fontshare for headings
+- **System fonts** for body text
+- **Custom logo** and brand assets
 
-CREATE INDEX idx_waitlist_email ON waitlist(email);
-\`\`\`
-
-### Manual Table Creation (Required)
-
-You need to manually create the waitlist table in your Supabase project:
-
-1. Go to your Supabase project dashboard
-2. Navigate to the SQL Editor
-3. Create a new query
-4. Paste the following SQL and run it:
-
-\`\`\`sql
-CREATE TABLE IF NOT EXISTS waitlist (
-  id SERIAL PRIMARY KEY,
-  full_name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  username VARCHAR(100) NOT NULL,
-  preferred_name VARCHAR(100),
-  experience VARCHAR(50),
-  interests TEXT[],
-  referred_by VARCHAR(100),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  status VARCHAR(50) DEFAULT 'pending'
-);
-
-CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist(email);
-\`\`\`
-
-### Retrieving Waitlist Data
-
-To retrieve the waitlist data from Supabase, you can use the following methods:
-
-#### 1. Using the Supabase Dashboard
-
-The simplest way to view and manage waitlist entries:
-
-1. Log in to your Supabase project dashboard
-2. Navigate to the "Table Editor" in the left sidebar
-3. Select the "waitlist" table
-4. You'll see all entries with options to filter, sort, and export data
-
-#### 2. Using SQL in Supabase Dashboard
-
-For more complex queries:
-
-1. Go to the SQL Editor in your Supabase dashboard
-2. Run queries like:
-
-\`\`\`sql
--- Get all waitlist entries
-SELECT * FROM waitlist ORDER BY created_at DESC;
-
--- Get count of waitlist entries
-SELECT COUNT(*) FROM waitlist;
-
--- Get entries from a specific date range
-SELECT * FROM waitlist 
-WHERE created_at BETWEEN '2023-01-01' AND '2023-12-31'
-ORDER BY created_at DESC;
-
--- Get entries with specific status
-SELECT * FROM waitlist WHERE status = 'pending';
-\`\`\`
-
-#### 3. Programmatically Using Supabase Client
-
-To retrieve data in your application code:
-
-\`\`\`typescript
-// Server-side retrieval (secure)
-import { createServerSupabaseClient } from "@/lib/supabase";
-
-export async function getWaitlistEntries() {
-  const supabase = createServerSupabaseClient();
-  
-  const { data, error } = await supabase
-    .from("waitlist")
-    .select("*")
-    .order("created_at", { ascending: false });
-    
-  if (error) {
-    console.error("Error fetching waitlist entries:", error);
-    return { success: false, error };
-  }
-  
-  return { success: true, data };
-}
-
-// Example usage in a server action or API route
-export async function GET() {
-  const result = await getWaitlistEntries();
-  
-  if (!result.success) {
-    return new Response(JSON.stringify({ error: "Failed to fetch waitlist data" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-  
-  return new Response(JSON.stringify(result.data), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
-}
-\`\`\`
-
-#### 4. Creating an Admin Dashboard
-
-For a more comprehensive solution, you could create an admin dashboard:
-
-1. Create a protected route (e.g., `/admin/waitlist`)
-2. Implement authentication to ensure only authorized users can access it
-3. Display waitlist data in a table with sorting, filtering, and pagination
-4. Add functionality to update status, add notes, or export data
-
-Example admin page structure:
-
-\`\`\`typescript
-// app/admin/waitlist/page.tsx
-"use client"
-
-import { useState, useEffect } from "react";
-import { getWaitlistEntries } from "@/app/actions/admin";
-
-export default function AdminWaitlistPage() {
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    async function loadData() {
-      const result = await getWaitlistEntries();
-      if (result.success) {
-        setEntries(result.data);
-      }
-      setLoading(false);
-    }
-    
-    loadData();
-  }, []);
-  
-  if (loading) return <div>Loading waitlist data...</div>;
-  
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Waitlist Entries ({entries.length})</h1>
-      
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b">Name</th>
-              <th className="py-2 px-4 border-b">Email</th>
-              <th className="py-2 px-4 border-b">Username</th>
-              <th className="py-2 px-4 border-b">Date</th>
-              <th className="py-2 px-4 border-b">Status</th>
-              <th className="py-2 px-4 border-b">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entries.map((entry) => (
-              <tr key={entry.id}>
-                <td className="py-2 px-4 border-b">{entry.full_name}</td>
-                <td className="py-2 px-4 border-b">{entry.email}</td>
-                <td className="py-2 px-4 border-b">{entry.username}</td>
-                <td className="py-2 px-4 border-b">
-                  {new Date(entry.created_at).toLocaleDateString()}
-                </td>
-                <td className="py-2 px-4 border-b">{entry.status}</td>
-                <td className="py-2 px-4 border-b">
-                  <button className="text-blue-500 hover:underline">Edit</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-\`\`\`
-
-### Security Considerations
-
-When retrieving waitlist data, keep these security practices in mind:
-
-1. **Never expose the service role key** in client-side code
-2. Always use server-side functions or API routes to fetch sensitive data
-3. Implement proper authentication and authorization for admin features
-4. Consider using Row Level Security (RLS) in Supabase for additional protection
-5. Sanitize and validate all user inputs before storing in the database
-
-### Integration Components
-
-1. **Supabase Client Setup** (`lib/supabase.ts`):
-   - Creates separate clients for server-side and client-side operations
-   - Handles environment variables and client instantiation
-   - Implements singleton pattern for client-side usage
-
-2. **Server Actions** (`app/actions/waitlist.ts`):
-   - Provides a server action to submit waitlist entries to Supabase
-   - Handles error cases like duplicate emails and missing tables
-   - Returns appropriate success/error messages
-   - Includes error logging for troubleshooting
-
-3. **Waitlist Form** (`components/waitlist-form.tsx`):
-   - Multi-step form with conversational UI
-   - Collects detailed user information (name, email, preferences, etc.)
-   - Implements smooth animations and transitions
-   - Provides visual feedback during submission
-
-### Error Handling
-
-The integration includes robust error handling for common issues:
-
-- **Table does not exist**: Appropriate user message with fallback behavior
-- **Duplicate email addresses**: User-friendly message without exposing database errors
-- **Network issues**: Graceful degradation with clear error messages
-- **Server errors**: Comprehensive logging for troubleshooting
-
-### Environment Variables
-
-The following environment variables are required for the Supabase integration:
+## Project Structure
 
 \`\`\`
-SUPABASE_URL=your-supabase-url
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+├── app/
+│   ├── auth/                 # Authentication pages
+│   ├── globals.css          # Global styles and animations
+│   ├── layout.tsx           # Root layout component
+│   └── page.tsx             # Main landing page
+├── components/
+│   ├── ui/                  # shadcn/ui components
+│   ├── brand-logo.tsx       # Brand logo component
+│   ├── navbar.tsx           # Navigation component
+│   ├── mobile-edge-section.tsx  # Mobile-optimized sections
+│   └── [other components]   # Additional UI components
+├── lib/
+│   └── utils.ts             # Utility functions
+├── public/
+│   └── images/              # Static assets and logo
+└── [config files]          # TypeScript, Tailwind, etc.
 \`\`\`
 
-## Getting Started
+## Key Components
 
-1. Clone the repository
-2. Install dependencies with `npm install`
-3. Set up your Supabase project:
-   - Create a new project in Supabase
-   - Get the API keys from the project settings
-   - Create the waitlist table using the SQL provided above
-4. Add the required environment variables to your `.env.local` file
-5. Run the development server with `npm run dev`
-6. Open [http://localhost:3000](http://localhost:3000) in your browser
+### Navigation System
+- **Desktop Navbar**: Clean navigation with glassmorphism effects on scroll
+- **Mobile Menu**: Proper hamburger menu following UI/UX principles
+- **Responsive Behavior**: Adaptive design that changes based on screen size
 
-## Troubleshooting
+### Authentication
+- **Sign In/Sign Up**: Toggle between authentication modes
+- **Form Validation**: Client-side validation with error handling
+- **Responsive Design**: Mobile-optimized forms and layouts
 
-### Common Issues
+### Landing Page Sections
+1. **Hero Section**: Animated text cycling and interactive background
+2. **Why Qantora**: Company vision and value proposition
+3. **Your Edge**: Feature showcase with hover effects
+4. **FAQ**: Expandable accordion with smooth animations
 
-1. **Database table not found error**: 
-   - Verify you've run the SQL creation script in your Supabase SQL Editor
-   - Check that the table name matches exactly (`waitlist` in lowercase)
-   - Ensure your service role key has the necessary permissions
+### Mobile Optimizations
+- **Proper Hamburger Menu**: Slide-in menu following UI/UX best practices
+- **Touch-Optimized**: Larger touch targets and gesture-friendly interactions
+- **Performance**: Optimized animations and reduced motion options
 
-2. **Authentication errors**:
-   - Confirm all environment variables are correctly set
-   - Make sure your API keys are valid and not expired
-   - Check for typos in the environment variable names
+## Styling and Animations
 
-3. **Form submission errors**:
-   - Look for browser console errors that might indicate client-side issues
-   - Check the server logs for any backend errors
-   - Verify network connectivity between your application and Supabase
+### CSS Architecture
+- **Tailwind CSS**: Utility-first CSS framework
+- **Custom CSS**: Global styles for animations and effects
+- **CSS Variables**: Dynamic theming and responsive design
 
-## Deployment
+### Animation System
+- **Framer Motion**: Page transitions and component animations
+- **CSS Animations**: Subtle hover effects and micro-interactions
+- **Performance**: Hardware-accelerated animations where possible
 
-This project can be easily deployed to Vercel:
-
-1. Push your code to a GitHub repository
-2. Import the repository in Vercel
-3. Add your environment variables in the Vercel project settings
-4. Deploy!
-
-### Environment Variables in Vercel
-
-Make sure to add these environment variables to your Vercel project:
-
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+### Responsive Design
+- **Mobile-First**: Designed for mobile devices first
+- **Breakpoints**: sm (640px), md (768px), lg (1024px), xl (1280px)
+- **Flexible Layouts**: Grid and flexbox for adaptive layouts
 
 ## Performance Considerations
 
-- The glassmorphism effects and animations are optimized for performance
-- The project uses responsive images and lazy loading where appropriate
-- CSS animations utilize hardware acceleration when possible
-- Form submissions are handled asynchronously to maintain UI responsiveness
+- **Image Optimization**: Next.js Image component with proper sizing
+- **Code Splitting**: Automatic code splitting with Next.js
+- **Lazy Loading**: Components and images loaded on demand
+- **Animation Performance**: GPU-accelerated animations
+- **Bundle Size**: Optimized imports and tree shaking
 
 ## Accessibility
 
-- The project follows WCAG guidelines for accessibility
-- All interactive elements are keyboard accessible
-- Proper contrast ratios are maintained for text readability
-- ARIA attributes are used where appropriate
+- **WCAG Guidelines**: Following accessibility best practices
+- **Keyboard Navigation**: Full keyboard accessibility
+- **Screen Readers**: Proper ARIA labels and semantic HTML
+- **Color Contrast**: Sufficient contrast ratios for readability
+- **Focus Management**: Clear focus indicators and logical tab order
+
+## Browser Support
+
+- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest versions)
+- **Mobile Browsers**: iOS Safari, Chrome Mobile, Samsung Internet
+- **Progressive Enhancement**: Graceful degradation for older browsers
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository
+\`\`\`bash
+git clone [repository-url]
+cd qantora-website
+\`\`\`
+
+2. Install dependencies
+\`\`\`bash
+npm install
+# or
+yarn install
+\`\`\`
+
+3. Run the development server
+\`\`\`bash
+npm run dev
+# or
+yarn dev
+\`\`\`
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Build for Production
+
+\`\`\`bash
+npm run build
+npm start
+\`\`\`
+
+## Deployment
+
+This project is optimized for deployment on Vercel:
+
+1. Push your code to a GitHub repository
+2. Import the repository in Vercel
+3. Deploy with automatic optimizations
+
+### Environment Variables
+
+No environment variables are required for the basic website functionality.
+
+## Customization
+
+### Brand Colors
+Update colors in `tailwind.config.ts` and `app/globals.css`
+
+### Typography
+Modify font imports in `app/layout.tsx` and update Tailwind config
+
+### Components
+All components are modular and can be easily customized or replaced
+
+### Animations
+Adjust animation settings in component files and global CSS
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions:
+- Email: qantoratech@gmail.com
+- WhatsApp: +1 (716) 541-2204
+
+---
+
+© 2024 Qantora. All rights reserved. Crafted with precision for the modern trader.
