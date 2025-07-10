@@ -53,17 +53,17 @@ export function BottomSheet({ isOpen, onClose, title, children, className }: Bot
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity animate-fade-in">
-      <div className="fixed inset-x-0 bottom-0 z-50 mt-auto flex h-full max-h-[90vh] flex-col rounded-t-[20px] bg-white shadow-lg animate-slide-in-bottom">
+    <div className="animate-fade-in fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity">
+      <div className="animate-slide-in-bottom fixed inset-x-0 bottom-0 z-50 mt-auto flex h-full max-h-[90vh] flex-col rounded-t-[20px] bg-white shadow-lg">
         <div ref={sheetRef} className={cn("h-full overflow-y-auto", className)}>
           <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white/90 p-4 backdrop-blur-sm">
-            {title && <h3 className="text-xl font-display font-semibold">{title}</h3>}
+            {title && <h3 className="font-display text-xl font-semibold">{title}</h3>}
             <button
               onClick={onClose}
               className="ml-auto rounded-full p-2 text-gray-500 hover:bg-gray-100"
               aria-label="Close"
             >
-              <X className="h-5 w-5" />
+              <X className="size-5" />
             </button>
           </div>
           <div className="p-4 md:p-6">{children}</div>

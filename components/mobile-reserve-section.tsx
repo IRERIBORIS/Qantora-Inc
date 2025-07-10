@@ -77,8 +77,8 @@ export function MobileReserveSection() {
   const currentExperienceStep = experienceSteps[currentStep]
 
   return (
-    <div ref={containerRef} className="min-h-[120vh] relative flex flex-col items-center py-12">
-      <div className="sticky top-[25vh] w-full max-w-md mx-auto px-4">
+    <div ref={containerRef} className="relative flex min-h-[120vh] flex-col items-center py-12">
+      <div className="sticky top-[25vh] mx-auto w-full max-w-md px-4">
         <motion.div
           style={{
             y: smoothY,
@@ -88,7 +88,7 @@ export function MobileReserveSection() {
           className="relative"
         >
           {/* Main glassmorphism card */}
-          <div className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="overflow-hidden rounded-3xl border border-white/20 bg-white/95 shadow-2xl backdrop-blur-xl">
             {/* Header */}
             <div className="relative bg-[#111827] p-8">
               {/* Subtle pattern overlay */}
@@ -100,12 +100,12 @@ export function MobileReserveSection() {
               />
 
               <div className="relative text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Sparkles className="h-5 w-5 text-white mr-2" />
-                  <span className="text-white text-sm font-medium tracking-wide">EARLY ACCESS</span>
+                <div className="mb-3 flex items-center justify-center">
+                  <Sparkles className="mr-2 size-5 text-white" />
+                  <span className="text-sm font-medium tracking-wide text-white">EARLY ACCESS</span>
                 </div>
-                <h3 className="text-2xl font-display font-bold text-white mb-2">The Qantora Experience</h3>
-                <p className="text-gray-300 text-sm">Join the trading evolution</p>
+                <h3 className="mb-2 font-display text-2xl font-bold text-white">The Qantora Experience</h3>
+                <p className="text-sm text-gray-300">Join the trading evolution</p>
               </div>
             </div>
 
@@ -114,7 +114,7 @@ export function MobileReserveSection() {
               {!showBenefits ? (
                 <>
                   {/* Progress indicator */}
-                  <div className="flex justify-center mb-8">
+                  <div className="mb-8 flex justify-center">
                     <div className="flex space-x-2">
                       {experienceSteps.map((_, index) => (
                         <motion.div
@@ -142,14 +142,14 @@ export function MobileReserveSection() {
                       className="mb-8"
                     >
                       <div className="flex items-start">
-                        <div className="w-12 h-12 rounded-full bg-[#111827] text-white flex items-center justify-center mr-4 flex-shrink-0 shadow-lg">
+                        <div className="mr-4 flex size-12 shrink-0 items-center justify-center rounded-full bg-[#111827] text-white shadow-lg">
                           <span className="text-lg font-bold">{currentExperienceStep.step}</span>
                         </div>
                         <div>
-                          <h4 className="text-lg font-display font-bold text-[#111827] mb-3 leading-tight">
+                          <h4 className="mb-3 font-display text-lg font-bold leading-tight text-[#111827]">
                             {currentExperienceStep.title}
                           </h4>
-                          <p className="text-gray-600 leading-relaxed">{currentExperienceStep.description}</p>
+                          <p className="leading-relaxed text-gray-600">{currentExperienceStep.description}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -163,11 +163,11 @@ export function MobileReserveSection() {
                   transition={{ duration: 0.5 }}
                   className="mb-8"
                 >
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-[#111827] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <Star className="h-8 w-8 text-white" />
+                  <div className="mb-6 text-center">
+                    <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-[#111827] shadow-lg">
+                      <Star className="size-8 text-white" />
                     </div>
-                    <h4 className="font-display font-bold text-[#111827] text-xl mb-2">Early Access Benefits</h4>
+                    <h4 className="mb-2 font-display text-xl font-bold text-[#111827]">Early Access Benefits</h4>
                     <p className="text-gray-600">Exclusive advantages for founding members</p>
                   </div>
 
@@ -178,12 +178,12 @@ export function MobileReserveSection() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.3 }}
-                        className="flex items-center p-4 bg-gray-50/80 rounded-xl border border-gray-100/50"
+                        className="flex items-center rounded-xl border border-gray-100/50 bg-gray-50/80 p-4"
                       >
-                        <div className="w-6 h-6 rounded-full bg-[#111827]/10 flex items-center justify-center mr-3 flex-shrink-0">
-                          <Check className="h-3.5 w-3.5 text-[#111827]" />
+                        <div className="mr-3 flex size-6 shrink-0 items-center justify-center rounded-full bg-[#111827]/10">
+                          <Check className="size-3.5 text-[#111827]" />
                         </div>
-                        <span className="text-gray-700 text-sm font-medium">{benefit}</span>
+                        <span className="text-sm font-medium text-gray-700">{benefit}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -197,15 +197,15 @@ export function MobileReserveSection() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Link href="/waitlist">
-                  <Button className="w-full bg-[#111827] hover:bg-[#1F2937] h-14 text-base group transition-all duration-500 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 relative overflow-hidden rounded-2xl">
+                  <Button className="group relative h-14 w-full overflow-hidden rounded-2xl bg-[#111827] text-base transition-all duration-500 hover:-translate-y-1 hover:bg-[#1F2937] hover:shadow-xl active:translate-y-0">
                     <span className="relative z-10 flex items-center justify-center font-medium">
                       Join the Waitlist
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                      <ArrowRight className="ml-2 size-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
-                    <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+                    <div className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-700 ease-out group-hover:translate-x-0" />
                   </Button>
                 </Link>
-                <p className="text-xs text-gray-500 mt-4 text-center">Limited spots available for early access</p>
+                <p className="mt-4 text-center text-xs text-gray-500">Limited spots available for early access</p>
               </motion.div>
             </div>
           </div>
@@ -221,7 +221,7 @@ export function MobileReserveSection() {
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
-            className="absolute -top-4 -right-4 w-8 h-8 bg-[#111827] rounded-lg opacity-20 shadow-lg"
+            className="absolute -right-4 -top-4 size-8 rounded-lg bg-[#111827] opacity-20 shadow-lg"
           />
           <motion.div
             animate={{
@@ -234,7 +234,7 @@ export function MobileReserveSection() {
               ease: "easeInOut",
               delay: 1,
             }}
-            className="absolute -bottom-4 -left-4 w-6 h-6 bg-gray-400 rounded-full opacity-30 shadow-lg"
+            className="absolute -bottom-4 -left-4 size-6 rounded-full bg-gray-400 opacity-30 shadow-lg"
           />
         </motion.div>
       </div>

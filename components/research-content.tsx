@@ -1,14 +1,14 @@
 export function ResearchContent() {
   return (
-    <div className="max-w-3xl mx-auto prose prose-gray">
-      <h2 className="font-display text-2xl font-bold mb-4">Smart Money vs Dumb Money — A Clearer Look</h2>
+    <div className="prose prose-gray mx-auto max-w-3xl">
+      <h2 className="mb-4 font-display text-2xl font-bold">Smart Money vs Dumb Money — A Clearer Look</h2>
       <p>
         In trading, there are two often-used terms:
         <strong> Smart Money</strong> and <strong>Dumb Money</strong>. But this isn't about intelligence — it's about
         strategy, structure, and outcomes.
       </p>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">🤔 Why "Smart" and "Dumb"?</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">🤔 Why "Smart" and "Dumb"?</h3>
       <p>
         <strong>Smart Money</strong> typically refers to institutional investors — hedge funds, asset managers, banks —
         who use informed decision-making, economic data, risk analysis, and strategic planning to guide their trades.
@@ -19,7 +19,7 @@ export function ResearchContent() {
       </p>
       <p>The labels aren't insults. They describe how decisions are made — and how money behaves in the market.</p>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">🎯 Expectations & Targets</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">🎯 Expectations & Targets</h3>
       <p>
         <strong>Smart Money</strong> sets realistic, long-term goals:
       </p>
@@ -38,9 +38,9 @@ export function ResearchContent() {
         <li>Unrealistic profit expectations (e.g., turning $100 into $10,000 in a week)</li>
       </ul>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">🛠 Decision-Making Framework</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">🛠 Decision-Making Framework</h3>
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border border-gray-200 my-4">
+        <table className="my-4 min-w-full border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-50">
               <th className="border border-gray-200 px-4 py-2 text-left">Category</th>
@@ -78,7 +78,7 @@ export function ResearchContent() {
         </table>
       </div>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">📊 Is Smart Money Technical or Fundamental?</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">📊 Is Smart Money Technical or Fundamental?</h3>
       <p>It's not either/or — Smart Money uses both:</p>
       <ul>
         <li>Fundamental analysis for long-term investment value</li>
@@ -92,7 +92,7 @@ export function ResearchContent() {
         <li>Trade based on emotion, not evidence</li>
       </ul>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">📈 Results: What Do They Actually Earn?</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">📈 Results: What Do They Actually Earn?</h3>
       <p>
         <strong>Smart Money</strong> targets consistent, compounding returns (e.g., 8–20% yearly across portfolios)
       </p>
@@ -104,7 +104,7 @@ export function ResearchContent() {
         <li>Suffers frequent drawdowns or full account losses</li>
       </ul>
 
-      <h3 className="font-display text-xl font-semibold mt-6 mb-3">🔁 The Bigger Picture</h3>
+      <h3 className="mb-3 mt-6 font-display text-xl font-semibold">🔁 The Bigger Picture</h3>
       <p>In simple terms:</p>
       <ul>
         <li>
@@ -115,13 +115,13 @@ export function ResearchContent() {
         </li>
       </ul>
 
-      <p className="text-lg font-semibold mt-6">
-        At Qantora, we don't shame "dumb money." We educate, equip, and empower everyday traders to make smart moves —
+      <p className="mt-6 text-lg font-semibold">
+        At Qantora, we don&apos;t shame &quot;dumb money.&quot; We educate, equip, and empower everyday traders to make smart moves —
         turning guesswork into strategy and confusion into confidence.
       </p>
 
       <p>
-        It's not about how much money you start with. It's about how you treat your money when it enters the market.
+        It&apos;s not about how much money you start with. It&apos;s about how you treat your money when it enters the market.
       </p>
 
       <p className="text-lg font-semibold">Qantora is here to shift that mindset — and help you trade smarter.</p>

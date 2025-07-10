@@ -108,8 +108,8 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
   return (
     <div className="space-y-4">
       {/* Progress indicator with animation */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="h-1 w-full overflow-hidden rounded-full bg-gray-100">
           <div
             className={cn(
               "bg-[#111827] h-full transition-all duration-600 ease-out progress-bar",
@@ -131,7 +131,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
         {currentStep === 1 && (
           <form onSubmit={handleSubmitStep1} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 flex items-center">
+              <Label htmlFor="fullName" className="flex items-center text-sm font-medium text-gray-700">
                 <span className="relative">
                   Full Name
                   <span
@@ -149,7 +149,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
                 onChange={(e) => setFullName(e.target.value)}
                 onFocus={() => setFocusedField("fullName")}
                 onBlur={() => setFocusedField(null)}
-                className="w-full transition-all duration-300 hover:border-gray-400 focus:border-gray-800 focus:-translate-y-1"
+                className="w-full transition-all duration-300 hover:border-gray-400 focus:-translate-y-1 focus:border-gray-800"
                 ref={inputRefs.fullName}
                 autoFocus
                 required
@@ -157,13 +157,13 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
             </div>
             <Button
               type="submit"
-              className="w-full bg-[#111827] hover:bg-[#1F2937] transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+              className="w-full bg-[#111827] transition-all duration-300 hover:-translate-y-1 hover:bg-[#1F2937] active:translate-y-0"
               disabled={!fullName.trim()}
             >
-              <span className="relative overflow-hidden inline-block">
+              <span className="relative inline-block overflow-hidden">
                 <span className="inline-block transition-transform duration-300 group-hover:opacity-0">Continue</span>
               </span>
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </form>
         )}
@@ -179,7 +179,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
         {currentStep === 2 && (
           <form onSubmit={handleSubmitStep2} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center">
+              <Label htmlFor="email" className="flex items-center text-sm font-medium text-gray-700">
                 <span className="relative">
                   Email Address
                   <span
@@ -198,7 +198,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 onFocus={() => setFocusedField("email")}
                 onBlur={() => setFocusedField(null)}
-                className="w-full transition-all duration-300 hover:border-gray-400 focus:border-gray-800 focus:-translate-y-1"
+                className="w-full transition-all duration-300 hover:border-gray-400 focus:-translate-y-1 focus:border-gray-800"
                 ref={inputRefs.email}
                 autoFocus
                 required
@@ -215,13 +215,13 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-[#111827] hover:bg-[#1F2937] transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+                className="flex-1 bg-[#111827] transition-all duration-300 hover:-translate-y-1 hover:bg-[#1F2937] active:translate-y-0"
                 disabled={!email.trim() || !email.includes("@")}
               >
-                <span className="relative overflow-hidden inline-block">
+                <span className="relative inline-block overflow-hidden">
                   <span className="inline-block transition-transform duration-300 group-hover:opacity-0">Continue</span>
                 </span>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
             </div>
           </form>
@@ -238,7 +238,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
         {currentStep === 3 && (
           <form onSubmit={handleSubmitFinal} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium text-gray-700 flex items-center">
+              <Label htmlFor="username" className="flex items-center text-sm font-medium text-gray-700">
                 <span className="relative">
                   Trading Username
                   <span
@@ -256,7 +256,7 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
                 onChange={(e) => setUsername(e.target.value)}
                 onFocus={() => setFocusedField("username")}
                 onBlur={() => setFocusedField(null)}
-                className="w-full transition-all duration-300 hover:border-gray-400 focus:border-gray-800 focus:-translate-y-1"
+                className="w-full transition-all duration-300 hover:border-gray-400 focus:-translate-y-1 focus:border-gray-800"
                 ref={inputRefs.username}
                 autoFocus
                 required
@@ -274,22 +274,22 @@ export function WaitlistForm({ onComplete }: WaitlistFormProps) {
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-[#111827] hover:bg-[#1F2937] transition-all duration-300 hover:-translate-y-1 active:translate-y-0 relative overflow-hidden"
+                className="relative flex-1 overflow-hidden bg-[#111827] transition-all duration-300 hover:-translate-y-1 hover:bg-[#1F2937] active:translate-y-0"
                 disabled={!username.trim() || isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
-                    <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                    <span className="mr-2 inline-block size-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
                     Processing...
                   </span>
                 ) : (
                   <>
                     Join Waitlist
-                    <Check className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                    <Check className="ml-2 size-4 transition-transform duration-300 group-hover:scale-110" />
                   </>
                 )}
                 {!isSubmitting && (
-                  <span className="absolute inset-0 bg-white/10 transform -translate-x-full hover:translate-x-0 transition-transform duration-700 ease-out"></span>
+                  <span className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-700 ease-out hover:translate-x-0"></span>
                 )}
               </Button>
             </div>

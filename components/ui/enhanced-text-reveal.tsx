@@ -43,15 +43,15 @@ export function EnhancedTextReveal() {
   ]
 
   return (
-    <div ref={containerRef} className="min-h-[150vh] relative flex flex-col items-center">
-      <div className="sticky top-[30vh] w-full max-w-md mx-auto px-6">
+    <div ref={containerRef} className="relative flex min-h-[150vh] flex-col items-center">
+      <div className="sticky top-[30vh] mx-auto w-full max-w-md px-6">
         <motion.div
           style={{
             y: smoothY,
             opacity: smoothOpacity,
             scale: smoothScale,
           }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 overflow-hidden"
+          className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-lg"
         >
           {paragraphs.map((text, index) => (
             <motion.p
@@ -63,7 +63,7 @@ export function EnhancedTextReveal() {
                 delay: index * 0.2 + 0.3,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="text-gray-600 mb-4 last:mb-6"
+              className="mb-4 text-gray-600 last:mb-6"
             >
               {text}
             </motion.p>
@@ -76,13 +76,13 @@ export function EnhancedTextReveal() {
             className="mt-6"
           >
             <Link href="/waitlist">
-              <Button className="w-full bg-[#111827] hover:bg-[#1F2937] h-12 text-base group transition-all duration-500 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 relative overflow-hidden">
+              <Button className="group relative h-12 w-full overflow-hidden bg-[#111827] text-base transition-all duration-500 hover:-translate-y-1 hover:bg-[#1F2937] hover:shadow-lg active:translate-y-0">
                 <span className="relative z-10">Join the Waitlist</span>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
-                <span className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
+                <ArrowRight className="relative z-10 ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <span className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-700 ease-out group-hover:translate-x-0"></span>
               </Button>
             </Link>
-            <p className="text-xs text-gray-500 mt-3 text-center">Limited spots available for early access</p>
+            <p className="mt-3 text-center text-xs text-gray-500">Limited spots available for early access</p>
           </motion.div>
         </motion.div>
       </div>

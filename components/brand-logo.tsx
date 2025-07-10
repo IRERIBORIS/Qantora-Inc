@@ -69,12 +69,12 @@ export function BrandLogo({
             src="/images/qantora-logo.png"
             alt="Qantora Logo"
             fill
-            className="object-contain filter drop-shadow-sm"
+            className="object-contain drop-shadow-sm"
             priority
           />
           {/* Enhanced glow effect */}
           {animated && (
-            <div className="absolute inset-0 bg-black/5 rounded-full blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
+            <div className="absolute inset-0 rounded-full bg-black/5 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-40" />
           )}
         </div>
       )}
@@ -96,7 +96,7 @@ export function BrandLogo({
         >
           QANTORA
           {/* Refined underline effect */}
-          <span className="block h-0.5 bg-black/80 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-0.5 rounded-full"></span>
+          <span className="mt-0.5 block h-0.5 origin-left scale-x-0 rounded-full bg-black/80 transition-transform duration-300 group-hover:scale-x-100"></span>
         </span>
       )}
     </div>

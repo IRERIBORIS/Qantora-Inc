@@ -85,24 +85,24 @@ export default function WaitlistPage() {
   if (!mounted) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-gray-50 to-white">
       {/* Back button */}
-      <div className="absolute top-6 left-6 z-10">
+      <div className="absolute left-6 top-6 z-10">
         <Link href="/">
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center justify-center w-10 h-10 rounded-md bg-white shadow-md hover:shadow-lg transition-all duration-300"
+            className="flex size-10 items-center justify-center rounded-md bg-white shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <ArrowLeft className="h-5 w-5 text-gray-700" />
+            <ArrowLeft className="size-5 text-gray-700" />
           </motion.div>
         </Link>
       </div>
 
-      <main className="flex-1 flex items-center justify-center p-4 md:p-8">
-        <div className="w-full max-w-md mx-auto">
+      <main className="flex flex-1 items-center justify-center p-4 md:p-8">
+        <div className="mx-auto w-full max-w-md">
           {/* Brand Logo and Title */}
-          <div className="text-center mb-8">
+          <div className="mb-8 text-center">
             <div className="flex flex-col items-center">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -115,7 +115,7 @@ export default function WaitlistPage() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="text-3xl font-display font-bold text-[#111827] tracking-tight"
+                className="font-display text-3xl font-bold tracking-tight text-[#111827]"
               >
                 QANTORA
               </motion.h1>
@@ -123,7 +123,7 @@ export default function WaitlistPage() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-gray-600 mt-2"
+                className="mt-2 text-gray-600"
               >
                 Your AI-Powered Trading Edge
               </motion.p>
@@ -135,12 +135,12 @@ export default function WaitlistPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+            className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl"
           >
             {!isSuccess ? (
               <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-display font-bold text-[#111827] mb-2">Join the Waitlist</h2>
-                <p className="text-gray-600 mb-6">Be the first to experience Qantora's trading revolution.</p>
+                <h2 className="mb-2 font-display text-2xl font-bold text-[#111827]">Join the Waitlist</h2>
+                <p className="mb-6 text-gray-600">Be the first to experience Qantora&apos;s trading revolution.</p>
 
                 <WaitlistForm
                   onComplete={(data) => {
@@ -148,8 +148,8 @@ export default function WaitlistPage() {
                     setUsername(data.username)
                     setIsSuccess(true)
                     toast({
-                      title: "You're on the list!",
-                      description: "We'll notify you when early access becomes available.",
+                      title: "You&apos;re on the list!",
+                      description: "We&apos;ll notify you when early access becomes available.",
                       duration: 5000,
                     })
                   }}
@@ -157,11 +157,11 @@ export default function WaitlistPage() {
               </div>
             ) : (
               <div className="p-8 text-center">
-                <div className="flex justify-center mb-6">
-                  <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center">
+                <div className="mb-6 flex justify-center">
+                  <div className="flex size-20 items-center justify-center rounded-full bg-green-50">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-10 w-10 text-green-600"
+                      className="size-10 text-green-600"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -170,18 +170,18 @@ export default function WaitlistPage() {
                     </svg>
                   </div>
                 </div>
-                <h2 className="text-2xl font-bold font-display tracking-tight text-[#111827] mb-4">You're In!</h2>
+                <h2 className="mb-4 font-display text-2xl font-bold tracking-tight text-[#111827]">You&apos;re In!</h2>
 
                 {/* Cato AI welcome message with typing animation */}
-                <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+                <div className="mb-6 rounded-lg bg-gray-50 p-4 text-left">
                   <div className="flex items-start">
-                    <div className="bg-[#111827] text-white p-2 rounded-full mr-3">
+                    <div className="mr-3 rounded-full bg-[#111827] p-2 text-white">
                       <span className="text-lg">⚡️</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Cato AI</p>
+                      <p className="mb-1 text-sm text-gray-500">Cato AI</p>
                       <TypingAnimation
-                        text={`👋 Hey ${username}! I'm Cato AI - your futuristic co-pilot in the fast-changing world of trading and investing.`}
+                        text={`�� Hey ${username}! I&apos;m Cato AI - your futuristic co-pilot in the fast-changing world of trading and investing.`}
                         speed={30}
                         delay={500}
                         className="text-gray-700"
@@ -190,11 +190,11 @@ export default function WaitlistPage() {
                   </div>
                 </div>
 
-                <p className="text-gray-600 mb-6">
-                  Thanks for joining the Qantora waitlist. We'll notify you when early access becomes available.
+                <p className="mb-6 text-gray-600">
+                  Thanks for joining the Qantora waitlist. We&apos;ll notify you when early access becomes available.
                 </p>
                 <Link href="/">
-                  <Button className="w-full bg-[#111827] hover:bg-[#1F2937] transition-all duration-300">
+                  <Button className="w-full bg-[#111827] transition-all duration-300 hover:bg-[#1F2937]">
                     Return to Home
                   </Button>
                 </Link>
@@ -207,9 +207,9 @@ export default function WaitlistPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-8 bg-white rounded-xl p-6 shadow-md border border-gray-100"
+            className="mt-8 rounded-xl border border-gray-100 bg-white p-6 shadow-md"
           >
-            <blockquote className="text-gray-600 italic text-sm md:text-base">
+            <blockquote className="text-sm italic text-gray-600 md:text-base">
               "The greatest edge in markets comes from the combination of intelligence, discipline, and the right
               tools."
             </blockquote>

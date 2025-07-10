@@ -84,10 +84,10 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
               )}
             />
 
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex h-16 items-center justify-between">
               {/* Enhanced Brand Logo */}
-              <div className="flex-shrink-0 transition-all duration-500">
-                <Link href="/" className="flex items-center group">
+              <div className="shrink-0 transition-all duration-500">
+                <Link href="/" className="group flex items-center">
                   <BrandLogo
                     size={scrolled ? "sm" : "md"}
                     withText
@@ -100,7 +100,7 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
 
               {/* Desktop Navigation */}
               {!isMobile && (
-                <div className="hidden md:flex items-center justify-center space-x-1 transition-all duration-500">
+                <div className="hidden items-center justify-center space-x-1 transition-all duration-500 md:flex">
                   {items.map((item) => (
                     <button
                       key={item.id}
@@ -118,7 +118,7 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
                       {(hoveredItem === item.id || activeSection === item.id) && (
                         <motion.span
                           layoutId="navbar-indicator"
-                          className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-black rounded-full"
+                          className="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full bg-black"
                           initial={false}
                           transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
@@ -133,10 +133,10 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
                 {isMobile ? (
                   <button
                     onClick={() => setMobileMenuOpen(true)}
-                    className="p-2.5 rounded-xl hover:bg-black/5 transition-all duration-300 group"
+                    className="group rounded-xl p-2.5 transition-all duration-300 hover:bg-black/5"
                     aria-label="Open menu"
                   >
-                    <Menu className="h-5 w-5 text-black group-hover:scale-110 transition-transform duration-300" />
+                    <Menu className="size-5 text-black transition-transform duration-300 group-hover:scale-110" />
                   </button>
                 ) : (
                   <Link href="/auth">
@@ -150,9 +150,9 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
                     >
                       <span className="relative z-10 flex items-center">
                         Get Started
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                       </span>
-                      <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                      <div className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-500 ease-out group-hover:translate-x-0" />
                     </Button>
                   </Link>
                 )}
@@ -182,23 +182,23 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-80 max-w-[85vw] bg-white shadow-2xl"
+              className="fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] bg-white shadow-2xl"
             >
-              <div className="flex flex-col h-full">
+              <div className="flex h-full flex-col">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                <div className="flex items-center justify-between border-b border-gray-100 p-6">
                   <BrandLogo size="sm" withText textClassName="text-base font-bold tracking-[0.12em]" />
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="rounded-lg p-2 transition-colors duration-200 hover:bg-gray-100"
                     aria-label="Close menu"
                   >
-                    <X className="h-5 w-5 text-gray-600" />
+                    <X className="size-5 text-gray-600" />
                   </button>
                 </div>
 
                 {/* Navigation Items */}
-                <div className="flex-1 py-8 px-6">
+                <div className="flex-1 px-6 py-8">
                   <nav className="space-y-2">
                     {items.map((item, index) => (
                       <motion.button
@@ -228,17 +228,17 @@ export function Navbar({ items, activeSection, onSectionClick }: NavbarProps) {
                 </div>
 
                 {/* CTA Section */}
-                <div className="p-6 border-t border-gray-100">
+                <div className="border-t border-gray-100 p-6">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.3 }}
                   >
                     <Link href="/auth" onClick={() => setMobileMenuOpen(false)}>
-                      <Button className="w-full bg-black hover:bg-black/90 text-white h-12 rounded-xl font-medium group transition-all duration-300 shadow-lg hover:shadow-xl">
+                      <Button className="group h-12 w-full rounded-xl bg-black font-medium text-white shadow-lg transition-all duration-300 hover:bg-black/90 hover:shadow-xl">
                         <span className="flex items-center justify-center">
                           Get Started
-                          <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                          <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
                       </Button>
                     </Link>

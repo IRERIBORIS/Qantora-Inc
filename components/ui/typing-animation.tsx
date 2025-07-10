@@ -52,7 +52,7 @@ export function TypingAnimation({
       <span>{displayedText}</span>
       {!isComplete && (
         <motion.span
-          className={`inline-block ml-0.5 ${cursorClassName}`}
+          className={`ml-0.5 inline-block ${cursorClassName}`}
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.8, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
         >

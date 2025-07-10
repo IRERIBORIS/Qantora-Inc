@@ -36,46 +36,46 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex relative overflow-hidden">
+    <div className="relative flex min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Subtle animated background shapes */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-50/20 to-purple-50/10 rounded-full blur-3xl animate-pulse opacity-60" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-gray-100/30 to-blue-50/20 rounded-full blur-3xl animate-pulse delay-1000 opacity-60" />
+        <div className="absolute left-1/4 top-1/4 size-96 animate-pulse rounded-full bg-gradient-to-br from-blue-50/20 to-purple-50/10 opacity-60 blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 size-80 animate-pulse rounded-full bg-gradient-to-tl from-gray-100/30 to-blue-50/20 opacity-60 blur-3xl delay-1000" />
 
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-[0.02]"></div>
       </div>
 
       {/* Back button - Enhanced and fully functional */}
-      <div className="absolute top-6 left-6 z-20">
+      <div className="absolute left-6 top-6 z-20">
         <Link href="/">
           <motion.button
             whileHover={{ scale: 1.05, x: -3 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 border border-white/30 group"
+            className="group flex size-12 items-center justify-center rounded-2xl border border-white/30 bg-white/90 shadow-lg backdrop-blur-md transition-all duration-300 hover:shadow-xl"
           >
-            <ArrowLeft className="h-5 w-5 text-gray-700 group-hover:text-black transition-colors duration-200" />
+            <ArrowLeft className="size-5 text-gray-700 transition-colors duration-200 group-hover:text-black" />
           </motion.button>
         </Link>
       </div>
 
       {/* Main Content - Card Only */}
-      <div className="flex-1 flex items-center justify-center p-6 relative z-10">
+      <div className="relative z-10 flex flex-1 items-center justify-center p-6">
         {/* Auth Card - Exactly as it was */}
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 overflow-hidden relative max-w-md mx-auto w-full"
+          className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-white/30 bg-white/95 shadow-2xl backdrop-blur-xl"
         >
           {/* Card background decoration */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-gray-50/50 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute right-0 top-0 size-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-bl from-gray-50/50 to-transparent" />
 
-          <div className="p-8 relative z-10">
+          <div className="relative z-10 p-8">
             {/* Welcome Message */}
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-display font-bold text-black mb-2">
+            <div className="mb-6 text-center">
+              <h3 className="mb-2 font-display text-2xl font-bold text-black">
                 {isSignUp ? "Join Qantora" : "Welcome Back"}
               </h3>
               <p className="text-gray-600">
@@ -84,9 +84,9 @@ export default function AuthPage() {
             </div>
 
             {/* Enhanced Toggle Buttons */}
-            <div className="flex bg-gray-50 rounded-2xl p-1.5 mb-6 relative">
+            <div className="relative mb-6 flex rounded-2xl bg-gray-50 p-1.5">
               <motion.div
-                className="absolute top-1.5 bottom-1.5 bg-white rounded-xl shadow-sm"
+                className="absolute inset-y-1.5 rounded-xl bg-white shadow-sm"
                 animate={{
                   left: isSignUp ? "50%" : "6px",
                   right: isSignUp ? "6px" : "50%",
@@ -124,11 +124,11 @@ export default function AuthPage() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Label htmlFor="name" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    <Label htmlFor="name" className="mb-2 block text-sm font-semibold text-gray-700">
                       Full Name
                     </Label>
-                    <div className="relative group">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-black transition-colors duration-200" />
+                    <div className="group relative">
+                      <User className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400 transition-colors duration-200 group-focus-within:text-black" />
                       <Input
                         id="name"
                         name="name"
@@ -136,7 +136,7 @@ export default function AuthPage() {
                         required={isSignUp}
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="pl-10 h-11 rounded-xl border-gray-200 focus:border-black focus:ring-black/10 transition-all duration-200 bg-gray-50/50 focus:bg-white text-sm"
+                        className="h-11 rounded-xl border-gray-200 bg-gray-50/50 pl-10 text-sm transition-all duration-200 focus:border-black focus:bg-white focus:ring-black/10"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -146,11 +146,11 @@ export default function AuthPage() {
 
               {/* Email field */}
               <div>
-                <Label htmlFor="email" className="text-sm font-semibold text-gray-700 mb-2 block">
+                <Label htmlFor="email" className="mb-2 block text-sm font-semibold text-gray-700">
                   Email Address
                 </Label>
-                <div className="relative group">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-black transition-colors duration-200" />
+                <div className="group relative">
+                  <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400 transition-colors duration-200 group-focus-within:text-black" />
                   <Input
                     id="email"
                     name="email"
@@ -158,7 +158,7 @@ export default function AuthPage() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="pl-10 h-11 rounded-xl border-gray-200 focus:border-black focus:ring-black/10 transition-all duration-200 bg-gray-50/50 focus:bg-white text-sm"
+                    className="h-11 rounded-xl border-gray-200 bg-gray-50/50 pl-10 text-sm transition-all duration-200 focus:border-black focus:bg-white focus:ring-black/10"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -166,11 +166,11 @@ export default function AuthPage() {
 
               {/* Password field */}
               <div>
-                <Label htmlFor="password" className="text-sm font-semibold text-gray-700 mb-2 block">
+                <Label htmlFor="password" className="mb-2 block text-sm font-semibold text-gray-700">
                   Password
                 </Label>
-                <div className="relative group">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-black transition-colors duration-200" />
+                <div className="group relative">
+                  <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400 transition-colors duration-200 group-focus-within:text-black" />
                   <Input
                     id="password"
                     name="password"
@@ -178,15 +178,15 @@ export default function AuthPage() {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="pl-10 pr-10 h-11 rounded-xl border-gray-200 focus:border-black focus:ring-black/10 transition-all duration-200 bg-gray-50/50 focus:bg-white text-sm"
+                    className="h-11 rounded-xl border-gray-200 bg-gray-50/50 px-10 text-sm transition-all duration-200 focus:border-black focus:bg-white focus:ring-black/10"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-black transition-colors duration-200"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors duration-200 hover:text-black"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                   </button>
                 </div>
               </div>
@@ -200,11 +200,11 @@ export default function AuthPage() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Label htmlFor="confirmPassword" className="text-sm font-semibold text-gray-700 mb-2 block">
+                    <Label htmlFor="confirmPassword" className="mb-2 block text-sm font-semibold text-gray-700">
                       Confirm Password
                     </Label>
-                    <div className="relative group">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-black transition-colors duration-200" />
+                    <div className="group relative">
+                      <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400 transition-colors duration-200 group-focus-within:text-black" />
                       <Input
                         id="confirmPassword"
                         name="confirmPassword"
@@ -212,15 +212,15 @@ export default function AuthPage() {
                         required={isSignUp}
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
-                        className="pl-10 pr-10 h-11 rounded-xl border-gray-200 focus:border-black focus:ring-black/10 transition-all duration-200 bg-gray-50/50 focus:bg-white text-sm"
+                        className="h-11 rounded-xl border-gray-200 bg-gray-50/50 px-10 text-sm transition-all duration-200 focus:border-black focus:bg-white focus:ring-black/10"
                         placeholder="Confirm your password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-black transition-colors duration-200"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors duration-200 hover:text-black"
                       >
-                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                       </button>
                     </div>
                   </motion.div>
@@ -230,7 +230,7 @@ export default function AuthPage() {
               {/* Forgot Password - only for sign in */}
               {!isSignUp && (
                 <div className="text-right">
-                  <Link href="#" className="text-sm text-black hover:underline font-medium">
+                  <Link href="#" className="text-sm font-medium text-black hover:underline">
                     Forgot password?
                   </Link>
                 </div>
@@ -239,25 +239,25 @@ export default function AuthPage() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-black hover:bg-black/90 h-12 text-base group transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden rounded-xl font-semibold mt-6"
+                className="group relative mt-6 h-12 w-full overflow-hidden rounded-xl bg-black text-base font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:bg-black/90 hover:shadow-xl active:translate-y-0"
               >
                 <span className="relative z-10 flex items-center justify-center">
                   {isSignUp ? "Create Account" : "Sign In"}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </span>
-                <div className="absolute inset-0 bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+                <div className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-700 ease-out group-hover:translate-x-0" />
               </Button>
             </form>
 
             {/* Terms */}
             <div className="mt-6 text-center">
-              <p className="text-xs text-gray-500 leading-relaxed">
+              <p className="text-xs leading-relaxed text-gray-500">
                 By continuing, you agree to our{" "}
-                <Link href="#" className="text-black hover:underline font-medium">
+                <Link href="#" className="font-medium text-black hover:underline">
                   Terms
                 </Link>{" "}
                 and{" "}
-                <Link href="#" className="text-black hover:underline font-medium">
+                <Link href="#" className="font-medium text-black hover:underline">
                   Privacy Policy
                 </Link>
               </p>

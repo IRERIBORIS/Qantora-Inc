@@ -1,14 +1,14 @@
 export function FutureContent() {
   return (
-    <div className="max-w-3xl mx-auto prose prose-gray">
-      <h2 className="font-display text-2xl font-bold mb-4">Where We're Headed</h2>
+    <div className="prose prose-gray mx-auto max-w-3xl">
+      <h2 className="mb-4 font-display text-2xl font-bold">Where We're Headed</h2>
       <p>Trading has come a long way.</p>
       <p>
         From shouting across stock floors to tapping on phones — the internet changed everything. Now, over 100 million
-        people trade globally using digital platforms. It's fast, accessible, and global.
+        people trade globally using digital platforms. It&apos;s fast, accessible, and global.
       </p>
-      <p className="font-semibold text-lg">But the next leap is bigger:</p>
-      <p className="text-xl font-display font-bold mt-4 mb-6">
+      <p className="text-lg font-semibold">But the next leap is bigger:</p>
+      <p className="mb-6 mt-4 font-display text-xl font-bold">
         The rise of Financial Intelligence — where AI becomes your edge.
       </p>
 
@@ -22,31 +22,31 @@ export function FutureContent() {
 
       <p className="mt-6">We imagine a world where:</p>
       <ul>
-        <li>Traders don't guess — they know.</li>
-        <li>Trading isn't lonely — it's social and supported.</li>
-        <li>Growth isn't accidental — it's engineered through clarity.</li>
+        <li>Traders don&apos;t guess — they know.</li>
+        <li>Trading isn&apos;t lonely — it&apos;s social and supported.</li>
+        <li>Growth isn&apos;t accidental — it&apos;s engineered through clarity.</li>
       </ul>
 
-      <div className="bg-gray-50 p-4 rounded-lg my-6">
-        <p className="italic text-center">
-          And maybe in this future, it's just:
+      <div className="my-6 rounded-lg bg-gray-50 p-4">
+        <p className="text-center italic">
+          And maybe in this future, it&apos;s just:
           <br />A trader, their dog, and an AI assistant reviewing trades over breakfast. 🐶📈🤖
         </p>
       </div>
 
       <p className="font-semibold">Jokes aside — this is serious.</p>
 
-      <p>We're building a platform that brings:</p>
+      <p>We&apos;re building a platform that brings:</p>
       <ul>
         <li>Intelligence to the individual</li>
         <li>Structure to the strategy</li>
         <li>Vision to your investing</li>
       </ul>
 
-      <p className="text-lg font-display font-bold mt-6">
-        The future of trading isn't about luck —
+      <p className="mt-6 font-display text-lg font-bold">
+        The future of trading isn&apos;t about luck —
         <br />
-        It's about precision, learning, and evolution.
+        It&apos;s about precision, learning, and evolution.
       </p>
 
       <p className="text-lg font-semibold">Qantora is here to guide that shift.</p>

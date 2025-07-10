@@ -125,7 +125,7 @@ export function MobileEdgeSection() {
               duration: 0.6,
               ease: [0.25, 0.1, 0.25, 1],
             }}
-            className="relative min-h-[320px] bg-white/95 backdrop-blur-xl border border-white/20 overflow-hidden"
+            className="relative min-h-[320px] overflow-hidden border border-white/20 bg-white/95 backdrop-blur-xl"
           >
             {/* Subtle background pattern */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-white/50" />
@@ -142,7 +142,7 @@ export function MobileEdgeSection() {
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "linear",
                 }}
-                className="absolute top-4 right-4 w-16 h-16 border border-gray-200/30 rounded-full"
+                className="absolute right-4 top-4 size-16 rounded-full border border-gray-200/30"
               />
               <motion.div
                 animate={{
@@ -154,26 +154,26 @@ export function MobileEdgeSection() {
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}
-                className="absolute bottom-4 left-4 w-8 h-8 bg-gray-100/50 rounded-lg"
+                className="absolute bottom-4 left-4 size-8 rounded-lg bg-gray-100/50"
               />
             </div>
 
             {/* Content */}
-            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+            <div className="relative z-10 flex h-full flex-col justify-between p-8">
               {/* Header */}
               <div>
-                <div className="flex items-center mb-6">
+                <div className="mb-6 flex items-center">
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.2, duration: 0.5, ease: "backOut" }}
-                    className="w-16 h-16 rounded-2xl bg-[#111827] flex items-center justify-center text-white text-2xl mr-4 shadow-lg"
+                    className="mr-4 flex size-16 items-center justify-center rounded-2xl bg-[#111827] text-2xl text-white shadow-lg"
                   >
                     {currentFeature.icon}
                   </motion.div>
                   <div className="flex items-center">
-                    <Sparkles className="h-4 w-4 text-gray-400 mr-2" />
-                    <span className="text-xs text-gray-500 font-medium tracking-wide uppercase">
+                    <Sparkles className="mr-2 size-4 text-gray-400" />
+                    <span className="text-xs font-medium uppercase tracking-wide text-gray-500">
                       Feature {currentIndex + 1}
                     </span>
                   </div>
@@ -184,11 +184,11 @@ export function MobileEdgeSection() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                  <h3 className="text-2xl font-display font-bold text-[#111827] mb-1 leading-tight">
+                  <h3 className="mb-1 font-display text-2xl font-bold leading-tight text-[#111827]">
                     {currentFeature.title}
                   </h3>
-                  <h4 className="text-lg font-display font-semibold text-gray-600 mb-4">{currentFeature.subtitle}</h4>
-                  <p className="text-gray-600 leading-relaxed">{currentFeature.description}</p>
+                  <h4 className="mb-4 font-display text-lg font-semibold text-gray-600">{currentFeature.subtitle}</h4>
+                  <p className="leading-relaxed text-gray-600">{currentFeature.description}</p>
                 </motion.div>
               </div>
 
@@ -197,26 +197,26 @@ export function MobileEdgeSection() {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                className="h-1 bg-[#111827] rounded-full mt-6"
+                className="mt-6 h-1 rounded-full bg-[#111827]"
                 style={{ transformOrigin: "left" }}
               />
             </div>
 
             {/* Glassmorphism overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Elegant navigation */}
-      <div className="flex items-center justify-between mt-8">
+      <div className="mt-8 flex items-center justify-between">
         <motion.button
           whileHover={{ scale: 1.05, x: -2 }}
           whileTap={{ scale: 0.95 }}
           onClick={prevSlide}
-          className="w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/20 shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:bg-gray-50/95"
+          className="flex size-12 items-center justify-center rounded-2xl border border-white/20 bg-white/95 shadow-lg backdrop-blur-xl transition-all duration-300 hover:bg-gray-50/95 hover:shadow-xl"
         >
-          <ChevronLeft className="h-5 w-5 text-gray-600" />
+          <ChevronLeft className="size-5 text-gray-600" />
         </motion.button>
 
         {/* Refined dots indicator */}
@@ -239,22 +239,22 @@ export function MobileEdgeSection() {
           whileHover={{ scale: 1.05, x: 2 }}
           whileTap={{ scale: 0.95 }}
           onClick={nextSlide}
-          className="w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/20 shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:bg-gray-50/95"
+          className="flex size-12 items-center justify-center rounded-2xl border border-white/20 bg-white/95 shadow-lg backdrop-blur-xl transition-all duration-300 hover:bg-gray-50/95 hover:shadow-xl"
         >
-          <ChevronRight className="h-5 w-5 text-gray-600" />
+          <ChevronRight className="size-5 text-gray-600" />
         </motion.button>
       </div>
 
       {/* Progress indicator */}
-      <div className="text-center mt-6">
-        <div className="flex items-center justify-center space-x-2 mb-2">
+      <div className="mt-6 text-center">
+        <div className="mb-2 flex items-center justify-center space-x-2">
           <span className="text-sm font-medium text-gray-600">
             {currentIndex + 1} of {edgeFeatures.length}
           </span>
         </div>
-        <div className="w-24 h-1 bg-gray-200 rounded-full mx-auto overflow-hidden">
+        <div className="mx-auto h-1 w-24 overflow-hidden rounded-full bg-gray-200">
           <motion.div
-            className="h-full bg-[#111827] rounded-full"
+            className="h-full rounded-full bg-[#111827]"
             initial={{ width: 0 }}
             animate={{ width: `${((currentIndex + 1) / edgeFeatures.length) * 100}%` }}
             transition={{ duration: 0.5, ease: "easeOut" }}
