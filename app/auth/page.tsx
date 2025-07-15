@@ -11,6 +11,9 @@ import { ArrowLeft, Eye, EyeOff, Mail, Lock, User, ArrowRight } from "lucide-rea
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
+// TODO: Replace with NextAuth.js sign-in/sign-up logic and UI.
+// Remove all Clerk dynamic imports and usage.
+
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -21,6 +24,7 @@ export default function AuthPage() {
     password: "",
     confirmPassword: "",
   })
+  const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -29,11 +33,35 @@ export default function AuthPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle authentication logic here
-    console.log("Form submitted:", formData)
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (isSignUp && formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    try {
+      const endpoint = isSignUp ? "http://localhost:8000/register" : "http://localhost:8000/login";
+      const payload = isSignUp
+        ? { email: formData.email, password: formData.password, full_name: formData.name }
+        : { email: formData.email, password: formData.password };
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.detail || "Authentication failed");
+        return;
+      }
+      localStorage.setItem("token", data.access_token);
+      // TODO: Redirect to dashboard or protected page
+      window.location.href = "/new-ui";
+    } catch (err) {
+      setError("Network error. Please try again.");
+    }
+  };
 
   return (
     <div className="relative flex min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -115,6 +143,9 @@ export default function AuthPage() {
 
             {/* Compact Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="mb-4 rounded-lg bg-red-100 px-4 py-2 text-sm text-red-700">{error}</div>
+              )}
               {/* Name field - only for sign up */}
               <AnimatePresence>
                 {isSignUp && (
@@ -265,6 +296,7 @@ export default function AuthPage() {
           </div>
         </motion.div>
       </div>
+      {/* NOTE: Authentication is handled by Clerk. After sign-in, users are redirected to the protected new-ui frontend. */}
     </div>
   )
 }

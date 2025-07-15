@@ -1,4 +1,5 @@
 "use client"
+import * as React from 'react'
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -14,8 +15,11 @@ import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
 import { TypingAnimation } from "@/components/ui/typing-animation"
 import { motion } from "framer-motion"
 import { MobileEdgeSection } from "@/components/mobile-edge-section"
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  const router = useRouter();
+
   const [mounted, setMounted] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -150,8 +154,6 @@ export default function LandingPage() {
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
   }
-
-  if (!mounted) return null
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
