@@ -478,7 +478,7 @@ export default function LandingPage() {
           ref={(el) => {
             sectionRefs.current[3] = el as HTMLElement | null;
           }}
-          className="section-fullscreen relative flex w-full items-center overflow-hidden bg-background py-16 md:py-24 border-border"
+          className="section-fullscreen relative flex w-full items-center overflow-hidden border-border bg-background py-16 md:py-24"
         >
           <div className="container px-4 md:px-6">
             <div className="mb-8 flex flex-col items-center justify-center space-y-6 text-center md:mb-12">
